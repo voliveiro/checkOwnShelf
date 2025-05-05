@@ -8,24 +8,27 @@ body {
 
 .app {
   max-width: 600px;
-  margin: 50px auto;
+  margin: 40px auto;
   background-color: #EEEEEE;
-  padding: 30px;
+  padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
   border-left: 6px solid #5C9EAD;
+  box-sizing: border-box;
 }
 
 h1 {
   text-align: center;
   color: #326273;
   margin-bottom: 20px;
+  font-size: 1.6em;
 }
 
 h2 {
   text-align: center;
   color: #326273;
   margin-bottom: 20px;
+  font-size: 1.3em;
 }
 
 input[type="text"],
@@ -38,6 +41,7 @@ input[type="password"] {
   border-radius: 6px;
   background-color: #FFFFFF;
   font-size: 1em;
+  box-sizing: border-box;
   color: #326273;
 }
 
@@ -61,6 +65,7 @@ button:hover {
 #bookInfo {
   margin-top: 15px;
   font-weight: bold;
+  word-wrap: break-word;
 }
 
 ul#bookList {
@@ -70,46 +75,63 @@ ul#bookList {
 }
 
 ul#bookList li {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
   background-color: #FFFFFF;
   padding: 12px;
   border-radius: 8px;
   border-left: 5px solid #5C9EAD;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+  word-wrap: break-word;
 }
 
 button.delete-button {
-  background-color: #f7c2ae;   /* soft peach tone */
-  color: #5a2d1b;              /* warm brown text */
+  background-color: #f7c2ae;
+  color: #5a2d1b;
   border: none;
-  padding: 4px 10px;
+  padding: 5px 10px;
   font-size: 0.8em;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
-  margin-top: 6px;
+  margin-top: 10px;
   display: inline-block;
-  width: auto;                 /* ✨ keeps it short */
-  min-width: 60px;             /* keeps it readable */
+  width: auto;
+  min-width: 60px;
 }
 
 button.delete-button:hover {
   background-color: #eaa185;
 }
 
-
 button.logout-button {
   width: auto;
-  padding: 6px 12px;
+  padding: 8px 16px;
   font-size: 0.9em;
   border-radius: 4px;
   background-color: #326273;
   color: white;
   border: none;
-  margin: 20px auto 0;
+  margin: 30px auto 0;
   display: block;
   cursor: pointer;
 }
 
-button.logout-button:hover {
-  background-color: #5C9EAD;
+/* 📱 Mobile responsiveness */
+@media screen and (max-width: 480px) {
+  .app {
+    margin: 20px;
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 1.4em;
+  }
+
+  input, button {
+    font-size: 1em;
+  }
+
+  button.logout-button {
+    font-size: 0.85em;
+    padding: 6px 12px;
+  }
 }
