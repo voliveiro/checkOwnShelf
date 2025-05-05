@@ -58,7 +58,9 @@ import {
           <strong>${b.title}</strong><br>
           by ${b.author}<br>
           Publisher: ${b.publisher}
-          <button class="delete-button" onclick="deleteBook('${b.id}')">🗑️ Remove</button>
+          <div>
+            <button class="delete-button" onclick="deleteBook('${b.id}')"> Remove</button>
+          </div>
         `;
         bookList.appendChild(li);
       });
@@ -121,7 +123,9 @@ import {
       const li = document.createElement("li");
       li.innerHTML = `
         <strong>${b.title}</strong> by ${b.author} (${b.publisher})
-        <button class="delete-button" onclick="deleteBook('${docSnap.id}')">🗑️</button>
+        <div>
+          <button class="delete-button" onclick="deleteBook('${docSnap.id}')">Remove</button>
+        </div>
       `;
       bookList.appendChild(li);
     });
