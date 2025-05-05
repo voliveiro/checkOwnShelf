@@ -18,13 +18,13 @@
 <body>
   <div class="app">
     <h1>Your Library</h1>
-    <button onclick="logout()">Logout</button>
     <input type="text" id="isbnInput" placeholder="Enter Author, Title, or ISBN" />
     <button onclick="checkLibrary()">Search Library</button>
     <div id="bookInfo"></div>
     <h3>Your Books</h3>
     <ul id="bookList"></ul>
   </div>
+  <button onclick="logout()">Logout</button>
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
   <script type="module" src="firebase.js"></script>
   <script type="module" src="script.js"></script>

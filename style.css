@@ -1,27 +1,87 @@
 body {
-    font-family: sans-serif;
-    padding: 20px;
-    background: #f9f9f9;
-  }
-  .app {
-    max-width: 400px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px #ccc;
-  }
-  input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-  }
-  button {
-    margin-top: 10px;
-    padding: 10px;
-    width: 100%;
-  }
-  #bookInfo {
-    margin-top: 15px;
-  }
-  
+  font-family: 'Georgia', serif;
+  background-color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+  color: #326273;
+}
+
+.app {
+  max-width: 600px;
+  margin: 50px auto;
+  background-color: #EEEEEE;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+  border-left: 6px solid #5C9EAD;
+}
+
+h1 {
+  text-align: center;
+  color: #326273;
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #5C9EAD;
+  border-radius: 6px;
+  background-color: #FFFFFF;
+  font-size: 1em;
+  color: #326273;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  background-color: #326273;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #5C9EAD;
+}
+
+#bookInfo {
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+ul#bookList {
+  margin-top: 20px;
+  padding-left: 0;
+  list-style: none;
+}
+
+ul#bookList li {
+  margin-bottom: 15px;
+  background-color: #FFFFFF;
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 5px solid #5C9EAD;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+button.delete-button {
+  background-color: #E39774;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  font-size: 0.9em;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+button.delete-button:hover {
+  background-color: #c96c4c;
+}
