@@ -135,3 +135,11 @@ button.logout-button {
     padding: 6px 12px;
   }
 }
+
+/* for larger desk tops */ 
+@media screen and (min-width: 1024px) {
+  .app {
+    max-width: 900px;
+    padding: 30px;
+  }
+}
