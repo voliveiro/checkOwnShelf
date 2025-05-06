@@ -88,7 +88,7 @@ import {
           <strong>${title}</strong><br>
           by ${author}<br>
           Publisher: ${publisher}<br>
-          <button id="addBookBtn">📚 Add to My Library</button>
+          <button id="addBookBtn"> Add to My Library</button>
         `;
   
         document.getElementById("addBookBtn").onclick = async () => {
@@ -105,8 +105,18 @@ import {
     }
   };
   
+  window.deleteBook = async function (bookId) {
+    try {
+      await deleteDoc(doc(db, "books", bookId));
+      alert("📚 Book removed.");
+      loadBooks(); // refresh list
+    } catch (error) {
+      console.error("Error deleting book:", error);
+      alert("⚠️ Could not delete the book.");
+    }
+  };
   
-  async function loadBooks() {
+  window.loadBooks = async function () {
     const booksRef = collection(db, "books");
     const q = query(booksRef, where("username", "==", username));
     const snap = await getDocs(q);
@@ -122,7 +132,8 @@ import {
       const b = docSnap.data();
       const li = document.createElement("li");
       li.innerHTML = `
-        <strong>${b.title}</strong> by ${b.author} (${b.publisher})
+        <strong>${b.title}</strong> by ${b.author} (${b.publisher}) <br>
+        ISBN: ${b.isbn}
         <div>
           <button class="delete-button" onclick="deleteBook('${docSnap.id}')">Remove</button>
         </div>
@@ -130,4 +141,82 @@ import {
       bookList.appendChild(li);
     });
   }
+
+  window.searchGoogleBooks = async function () {
+    const title = document.getElementById("titleInput").value.trim();
+    const author = document.getElementById("authorInput").value.trim();
+    const resultsDiv = document.getElementById("searchResults");
+    resultsDiv.innerHTML = "";
+  
+    if (!title && !author) {
+      resultsDiv.textContent = "❗ Enter a title or author to search.";
+      return;
+    }
+  
+    let query = "";
+    if (title) query += `intitle:${title}`;
+    if (author) query += (query ? "+" : "") + `inauthor:${author}`;
+  
+    try {
+      const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=10`);
+      const data = await res.json();
+  
+      if (!data.items || data.items.length === 0) {
+        resultsDiv.textContent = "No books found.";
+        return;
+      }
+  
+      data.items.forEach(book => {
+        const info = book.volumeInfo;
+        const isbnObj = (info.industryIdentifiers || []).find(i => i.type.includes("ISBN"));
+        const isbn = isbnObj ? isbnObj.identifier : "Unknown ISBN";
+        const bookTitle = info.title || "Untitled";
+        const bookAuthor = (info.authors && info.authors.join(", ")) || "Unknown Author";
+        const publisher = info.publisher || "Unknown Publisher";
+  
+        const bookDiv = document.createElement("div");
+        bookDiv.style.marginBottom = "15px";
+  
+        bookDiv.innerHTML = `
+          <strong>${bookTitle}</strong><br>
+          by ${bookAuthor}<br>
+          Publisher: ${publisher}<br>
+          ISBN: ${isbn}<br>
+          <button id="addBookBtn" onclick="addToLibrary('${isbn}', '${bookTitle.replace(/'/g, "\\'")}', '${bookAuthor.replace(/'/g, "\\'")}', '${publisher.replace(/'/g, "\\'")}')">Add to My Library</button>
+        `;
+  
+        resultsDiv.appendChild(bookDiv);
+      });
+    } catch (error) {
+      console.error("Google Books API error:", error);
+      resultsDiv.textContent = "⚠️ Error searching books.";
+    }
+  };
+  
+  window.addToLibrary = async function (isbn, title, author, publisher) {
+    const booksRef = collection(db, "books");
+  
+    // Check for duplicates first
+    const q = query(booksRef, where("isbn", "==", isbn), where("username", "==", username));
+    const snap = await getDocs(q);
+  
+    if (!snap.empty) {
+      alert("You already have this book in your library.");
+      return;
+    }
+  
+    await addDoc(booksRef, { isbn, title, author, publisher, username });
+    alert(`✅ "${title}" added to your library.`);
+    loadBooks();
+  };
+
+  window.clearSearch = function () {
+    document.getElementById("isbnInput").value = "";
+    document.getElementById("bookInfo").innerHTML = "";
+  
+    document.getElementById("titleInput").value = "";
+    document.getElementById("authorInput").value = "";
+    document.getElementById("searchResults").innerHTML = "";
+  };
+  
   
