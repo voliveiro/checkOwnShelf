@@ -140,8 +140,8 @@ button.logout-button {
   }
 }
 
-#addBookBtn {
-  padding: 6px 10px;
+button.addBookBtn {
+  padding: 6px 12px;
   font-size: 0.85em;
   width: auto;
   display: inline-block;
@@ -149,10 +149,12 @@ button.logout-button {
   color: #fff;
   border: none;
   border-radius: 4px;
-  margin-top: 6px;
+  margin-top: 8px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
-#addBookBtn:hover {
+button.addBookBtn:hover {
   background-color: #326273;
 }
+

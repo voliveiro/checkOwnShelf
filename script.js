@@ -21,89 +21,75 @@ import {
   };
   
   window.checkLibrary = async function () {
-    const queryInput = document.getElementById("isbnInput").value.trim().toLowerCase();
+    const isbnInput = document.getElementById("isbnInput").value.trim();
     const infoDiv = document.getElementById("bookInfo");
     const bookList = document.getElementById("bookList");
   
     infoDiv.innerHTML = "";
     bookList.innerHTML = "";
   
+    if (!isbnInput) {
+      loadBooks(); // fallback: show all books
+      return;
+    }
+  
     const booksRef = collection(db, "books");
-    const snap = await getDocs(query(booksRef, where("username", "==", username)));
+    const q = query(booksRef, where("isbn", "==", isbnInput), where("username", "==", username));
+    const snap = await getDocs(q);
   
-    const allBooks = [];
-    snap.forEach(docSnap => {
-      allBooks.push({ ...docSnap.data(), id: docSnap.id });
-    });
-  
-    // Show all books if input is empty
-    if (!queryInput) {
-      loadBooks();
+    if (!snap.empty) {
+      // ✅ Book already in library
+      const book = snap.docs[0].data();
+      infoDiv.innerHTML = `
+        <strong>${book.title}</strong><br>
+        by ${book.author}<br>
+        Publisher: ${book.publisher}<br>
+        ISBN: ${book.isbn}<br>
+        <div style="color: green; margin-top: 8px;">✅ This book is already in your library.</div>
+      `;
       return;
     }
   
-    // Use Fuse.js for fuzzy matching
-    const fuse = new Fuse(allBooks, {
-      keys: ['title', 'author', 'publisher'],
-      threshold: 0.4 // lower = stricter; 0.4 = nice fuzzy match
-    });
+    // Not in library — search Google Books
+    try {
+      const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbnInput}`);
+      const data = await res.json();
   
-    const results = fuse.search(queryInput);
+      if (!data.items || data.items.length === 0) {
+        infoDiv.textContent = "❌ Book not found in Google Books.";
+        return;
+      }
   
-    if (results.length > 0) {
-      results.forEach(result => {
-        const b = result.item;
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <strong>${b.title}</strong><br>
-          by ${b.author}<br>
-          Publisher: ${b.publisher}
-          <div>
-            <button class="delete-button" onclick="deleteBook('${b.id}')"> Remove</button>
-          </div>
-        `;
-        bookList.appendChild(li);
-      });
-      return;
-    }
+      const book = data.items[0].volumeInfo;
+      const title = book.title || "Unknown Title";
+      const author = (book.authors && book.authors.join(", ")) || "Unknown Author";
+      const publisher = book.publisher || "Unknown Publisher";
   
-    // If query looks like ISBN, try Google Books
-    const isISBN = /^\d{10}(\d{3})?$/.test(queryInput);
-    if (isISBN) {
-      try {
-        const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${queryInput}`);
-        const data = await res.json();
+      infoDiv.innerHTML = `
+        <strong>${title}</strong><br>
+        by ${author}<br>
+        Publisher: ${publisher}<br>
+        ISBN: ${isbnInput}<br>
+        <button class="addBookBtn">Add to My Library</button>
+      `;
   
-        if (!data.items || data.items.length === 0) {
-          infoDiv.textContent = "❌ No match found in your library or Google.";
-          return;
-        }
-  
-        const book = data.items[0].volumeInfo;
-        const title = book.title || "Unknown Title";
-        const author = (book.authors && book.authors.join(", ")) || "Unknown Author";
-        const publisher = book.publisher || "Unknown Publisher";
-  
+      document.getElementsByClassName("addBookBtn").onclick = async () => {
+        await addDoc(booksRef, { isbn: isbnInput, title, author, publisher, username });
         infoDiv.innerHTML = `
           <strong>${title}</strong><br>
           by ${author}<br>
           Publisher: ${publisher}<br>
-          <button id="addBookBtn"> Add to My Library</button>
+          ISBN: ${isbnInput}<br>
+          <div style="color: green; margin-top: 8px;">✅ Added to your library!</div>
         `;
-  
-        document.getElementById("addBookBtn").onclick = async () => {
-          await addDoc(booksRef, { isbn: queryInput, title, author, publisher, username });
-          infoDiv.textContent = `✅ "${title}" added to your library.`;
-          loadBooks();
-        };
-      } catch (error) {
-        console.error("Google Books API error:", error);
-        infoDiv.textContent = "⚠️ Error retrieving book data.";
-      }
-    } else {
-      infoDiv.textContent = "❌ No match found in your library.";
+        loadBooks();
+      };
+    } catch (error) {
+      console.error("Google Books API error:", error);
+      infoDiv.textContent = "⚠️ Error retrieving book data.";
     }
   };
+  
   
   window.deleteBook = async function (bookId) {
     try {
@@ -153,19 +139,52 @@ import {
       return;
     }
   
-    let query = "";
-    if (title) query += `intitle:${title}`;
-    if (author) query += (query ? "+" : "") + `inauthor:${author}`;
+    const booksRef = collection(db, "books");
+    let userQuery = query(booksRef, where("username", "==", username));
+    const userSnap = await getDocs(userQuery);
+  
+    const localMatches = [];
+    userSnap.forEach(docSnap => {
+      const b = docSnap.data();
+      const titleMatch = title && b.title.toLowerCase().includes(title.toLowerCase());
+      const authorMatch = author && b.author.toLowerCase().includes(author.toLowerCase());
+      if ((title && titleMatch) || (author && authorMatch)) {
+        localMatches.push(b);
+      }
+    });
+  
+    // 📚 List library matches (if any)
+    if (localMatches.length > 0) {
+      resultsDiv.innerHTML += `<p><strong>📚 Books already in your library:</strong></p>`;
+      localMatches.forEach(b => {
+        const bookDiv = document.createElement("div");
+        bookDiv.style.marginBottom = "15px";
+        bookDiv.innerHTML = `
+          <strong>${b.title}</strong><br>
+          by ${b.author}<br>
+          Publisher: ${b.publisher}<br>
+          ISBN: ${b.isbn}<br>
+          <div style="color: green;">✅ Already in your library.</div>
+        `;
+        resultsDiv.appendChild(bookDiv);
+      });
+    }
+  
+    // 🔎 Now search Google Books regardless
+    let queryStr = "";
+    if (title) queryStr += `intitle:${title}`;
+    if (author) queryStr += (queryStr ? "+" : "") + `inauthor:${author}`;
   
     try {
-      const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=10`);
+      const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(queryStr)}&maxResults=10`);
       const data = await res.json();
   
       if (!data.items || data.items.length === 0) {
-        resultsDiv.textContent = "No books found.";
+        resultsDiv.innerHTML += "<p>❌ No books found in Google Books.</p>";
         return;
       }
   
+      resultsDiv.innerHTML += `<p><strong>🔍 Books found on Google Books:</strong></p>`;
       data.items.forEach(book => {
         const info = book.volumeInfo;
         const isbnObj = (info.industryIdentifiers || []).find(i => i.type.includes("ISBN"));
@@ -176,22 +195,22 @@ import {
   
         const bookDiv = document.createElement("div");
         bookDiv.style.marginBottom = "15px";
-  
         bookDiv.innerHTML = `
           <strong>${bookTitle}</strong><br>
           by ${bookAuthor}<br>
           Publisher: ${publisher}<br>
           ISBN: ${isbn}<br>
-          <button id="addBookBtn" onclick="addToLibrary('${isbn}', '${bookTitle.replace(/'/g, "\\'")}', '${bookAuthor.replace(/'/g, "\\'")}', '${publisher.replace(/'/g, "\\'")}')">Add to My Library</button>
+          <button class="addBookBtn" onclick="addToLibrary('${isbn}', '${bookTitle.replace(/'/g, "\\'")}', '${bookAuthor.replace(/'/g, "\\'")}', '${publisher.replace(/'/g, "\\'")}')">Add to My Library</button>
         `;
   
         resultsDiv.appendChild(bookDiv);
       });
     } catch (error) {
       console.error("Google Books API error:", error);
-      resultsDiv.textContent = "⚠️ Error searching books.";
+      resultsDiv.innerHTML += "<p>⚠️ Error searching Google Books.</p>";
     }
   };
+  
   
   window.addToLibrary = async function (isbn, title, author, publisher) {
     const booksRef = collection(db, "books");
