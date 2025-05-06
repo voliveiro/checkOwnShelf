@@ -7,7 +7,7 @@ body {
 }
 
 .app {
-  margin: 40px 5%; /* 5% left/right margin */
+  margin: 5%; /* 5% on all sides: top, bottom, left, right */
   background-color: #EEEEEE;
   padding: 24px;
   border-radius: 12px;
