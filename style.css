@@ -7,10 +7,9 @@ body {
 }
 
 .app {
-  max-width: 600px;
-  margin: 40px auto;
+  margin: 40px 5%; /* 5% left/right margin */
   background-color: #EEEEEE;
-  padding: 20px;
+  padding: 24px;
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
   border-left: 6px solid #5C9EAD;
@@ -136,10 +135,4 @@ button.logout-button {
   }
 }
 
-/* for larger desk tops */ 
-@media screen and (min-width: 1024px) {
-  .app {
-    max-width: 900px;
-    padding: 30px;
-  }
-}
+ 
