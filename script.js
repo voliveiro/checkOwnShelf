@@ -22,10 +22,10 @@ import {
   
   window.checkLibrary = async function () {
     const isbnInput = document.getElementById("isbnInput").value.trim();
-    const infoDiv = document.getElementById("bookInfo");
+    const resultsDiv = document.getElementById("searchResults");
     const bookList = document.getElementById("bookList");
   
-    infoDiv.innerHTML = "";
+    resultsDiv.innerHTML = "";
     bookList.innerHTML = "";
   
     if (!isbnInput) {
@@ -41,7 +41,7 @@ import {
     if (!snap.empty) {
       const book = snap.docs[0].data();
   
-      infoDiv.innerHTML = `
+      resultsDiv.innerHTML = `
         <div class="bookRow">
           <div class="bookInfo">
             <strong>${book.title}</strong><br>
@@ -64,7 +64,7 @@ import {
       const data = await res.json();
   
       if (!data.items || data.items.length === 0) {
-        infoDiv.textContent = "❌ Book not found in Google Books.";
+        resultsDiv.textContent = "❌ Book not found in Google Books.";
         return;
       }
   
@@ -74,7 +74,7 @@ import {
       const publisher = book.publisher || "Unknown Publisher";
       const thumbnail = book.imageLinks?.thumbnail || "";
   
-      infoDiv.innerHTML = `
+      resultsDiv.innerHTML = `
         <div class="bookRow">
           <div class="bookInfo">
             <strong>${title}</strong><br>
@@ -99,7 +99,7 @@ import {
           username
         });
   
-        infoDiv.innerHTML = `
+        resultsDiv.innerHTML = `
           <div class="bookRow">
             <div class="bookInfo">
               <strong>${title}</strong><br>
@@ -117,10 +117,17 @@ import {
       };
     } catch (error) {
       console.error("Google Books API error:", error);
-      infoDiv.textContent = "⚠️ Error retrieving book data.";
+      resultsDiv.textContent = "⚠️ Error retrieving book data.";
     }
   };
   
+
+  window.clearSearch = function () {
+    document.getElementById("isbnInput").value = "";
+    document.getElementById("titleInput").value = "";
+    document.getElementById("authorInput").value = "";
+    document.getElementById("searchResults").innerHTML = "";
+  };
   
   
   window.deleteBook = async function (bookId) {
