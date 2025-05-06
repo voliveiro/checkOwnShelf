@@ -81,7 +81,7 @@ import {
             by ${author}<br>
             Publisher: ${publisher}<br>
             ISBN: ${isbnInput}<br>
-            <button class="addBookBtn">📚 Add to My Library</button>
+            <button class="addBookBtn"> Add to My Library</button>
           </div>
           <div class="bookThumbnail">
             ${thumbnail ? `<img src="${thumbnail}" alt="Book cover">` : ""}
