@@ -1,19 +1,24 @@
-body {
-  font-family: 'Georgia', serif;
-  background-color: #FFFFFF;
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
+  background-color: #FFFFFF;
+  font-family: 'Georgia', serif;
   color: #326273;
 }
 
 .app {
-  margin: 5%; /* 5% on all sides: top, bottom, left, right */
+  min-height: 90%;          /* allow vertical expansion */
+  margin: 5%;               /* 5% on all sides */
   background-color: #EEEEEE;
   padding: 24px;
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
   border-left: 6px solid #5C9EAD;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 h1 {
