@@ -8,10 +8,10 @@ html, body {
 }
 
 .app {
-  min-height: 90%;          /* allow vertical expansion */
-  margin: 5%;               /* 5% on all sides */
+  min-height: 95%;          /* allow vertical expansion */
+  margin: 2%;               /* 5% on all sides */
   background-color: #EEEEEE;
-  padding: 24px;
+  padding: 5px;
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
   border-left: 6px solid #5C9EAD;
@@ -21,24 +21,32 @@ html, body {
   justify-content: space-between;
 }
 
-h1 {
+.app h1 {
+  margin-bottom: 0;
   text-align: center;
   color: #326273;
-  margin-bottom: 10px;
-  font-size: 2em;
+  font-size: 3em; 
 }
 
-h2 {
-  text-align: center;
+.app h2 {
+  margin-top: 0;
+  font-weight: normal;
+  font-size: 2em;
   color: #326273;
-  margin-bottom: 10px;
-  font-size: 1.5em;
+  text-align: center;
+}
+
+.inputFields {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-  width: 100%;
+  width: 70%;
   padding: 12px;
   margin: 10px 0;
   border: 1px solid #5C9EAD;
@@ -50,7 +58,7 @@ input[type="password"] {
 }
 
 button {
-  width: 100%;
+  width: 70%;
   padding: 12px;
   margin: 10px 0;
   background-color: #326273;
@@ -180,7 +188,7 @@ button.addBookBtn:hover {
 }
 
 footer{
-  font-size: 0.5em;
+  font-size: 1em;
   margin-left: 5%;
   margin-right:5%;
   margin-bottom: 10%;
@@ -188,4 +196,5 @@ footer{
 
 footer p {
   padding-bottom: 5%;
+  margin-top: -10px; 
 }

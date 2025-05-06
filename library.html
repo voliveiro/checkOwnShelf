@@ -22,27 +22,32 @@
     <h2>Library</h2>
 
     <!-- ISBN Search Section -->
-    <h3>Search by ISBN</h3>
-    <input type="text" id="isbnInput" placeholder="Enter ISBN">
-
-    <button onclick="checkLibrary()">Check ISBN</button>
+    <div class="inputFields"> 
+      <h3>Search by ISBN</h3>
+        <input type="text" id="isbnInput" placeholder="Enter ISBN">
+      <button onclick="checkLibrary()">Check ISBN</button>
+    </div>
 
     <!-- Title/Author Search Section -->
+    <div class="inputFields"> 
     <h3>Search by Title and/or Author</h3>
-    <input type="text" id="titleInput" placeholder="Search by title">
-    <input type="text" id="authorInput" placeholder="Search by author">
-    <button onclick="searchGoogleBooks()">Search Library</button>
-    <button onclick="clearSearch()">Clear Search</button>
+      <input type="text" id="titleInput" placeholder="Search by title">
+      <input type="text" id="authorInput" placeholder="Search by author">
+      <button onclick="searchGoogleBooks()">Search Library</button>
+      <button onclick="clearSearch()">Clear Search</button>
+    </div>
 
     <div id="searchResults"></div>
 
 
+    
+  <div class="inputFields"> 
     <h3>Your Books</h3>
     <button onclick="loadBooks()">View My Library</button>
-  
-    <button class="logout-button" onclick="logout()">Logout</button>
-    <ul id="bookList"></ul> 
   </div>
+  <button class="logout-button" onclick="logout()">Logout</button>
+  <ul id="bookList"></ul> 
+</div>
 
 
   
