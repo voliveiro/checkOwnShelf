@@ -37,20 +37,28 @@ import {
     const q = query(booksRef, where("isbn", "==", isbnInput), where("username", "==", username));
     const snap = await getDocs(q);
   
+    // ✅ Already in library
     if (!snap.empty) {
-      // ✅ Book already in library
       const book = snap.docs[0].data();
+  
       infoDiv.innerHTML = `
-        <strong>${book.title}</strong><br>
-        by ${book.author}<br>
-        Publisher: ${book.publisher}<br>
-        ISBN: ${book.isbn}<br>
-        <div style="color: green; margin-top: 8px;">✅ This book is already in your library.</div>
+        <div class="bookRow">
+          <div class="bookInfo">
+            <strong>${book.title}</strong><br>
+            by ${book.author}<br>
+            Publisher: ${book.publisher}<br>
+            ISBN: ${book.isbn}<br>
+            <div style="color: green; margin-top: 8px;">✅ This book is already in your library.</div>
+          </div>
+          <div class="bookThumbnail">
+            ${book.thumbnail ? `<img src="${book.thumbnail}" alt="Book cover">` : ""}
+          </div>
+        </div>
       `;
       return;
     }
   
-    // Not in library — search Google Books
+    // ❌ Not in library — fetch from Google Books
     try {
       const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbnInput}`);
       const data = await res.json();
@@ -64,23 +72,46 @@ import {
       const title = book.title || "Unknown Title";
       const author = (book.authors && book.authors.join(", ")) || "Unknown Author";
       const publisher = book.publisher || "Unknown Publisher";
+      const thumbnail = book.imageLinks?.thumbnail || "";
   
       infoDiv.innerHTML = `
-        <strong>${title}</strong><br>
-        by ${author}<br>
-        Publisher: ${publisher}<br>
-        ISBN: ${isbnInput}<br>
-        <button class="addBookBtn">Add to My Library</button>
+        <div class="bookRow">
+          <div class="bookInfo">
+            <strong>${title}</strong><br>
+            by ${author}<br>
+            Publisher: ${publisher}<br>
+            ISBN: ${isbnInput}<br>
+            <button class="addBookBtn">📚 Add to My Library</button>
+          </div>
+          <div class="bookThumbnail">
+            ${thumbnail ? `<img src="${thumbnail}" alt="Book cover">` : ""}
+          </div>
+        </div>
       `;
   
-      document.getElementsByClassName("addBookBtn").onclick = async () => {
-        await addDoc(booksRef, { isbn: isbnInput, title, author, publisher, username });
+      document.querySelector(".addBookBtn").onclick = async () => {
+        await addDoc(booksRef, {
+          isbn: isbnInput,
+          title,
+          author,
+          publisher,
+          thumbnail,
+          username
+        });
+  
         infoDiv.innerHTML = `
-          <strong>${title}</strong><br>
-          by ${author}<br>
-          Publisher: ${publisher}<br>
-          ISBN: ${isbnInput}<br>
-          <div style="color: green; margin-top: 8px;">✅ Added to your library!</div>
+          <div class="bookRow">
+            <div class="bookInfo">
+              <strong>${title}</strong><br>
+              by ${author}<br>
+              Publisher: ${publisher}<br>
+              ISBN: ${isbnInput}<br>
+              <div style="color: green; margin-top: 8px;">✅ Added to your library!</div>
+            </div>
+            <div class="bookThumbnail">
+              ${thumbnail ? `<img src="${thumbnail}" alt="Book cover">` : ""}
+            </div>
+          </div>
         `;
         loadBooks();
       };
@@ -89,6 +120,7 @@ import {
       infoDiv.textContent = "⚠️ Error retrieving book data.";
     }
   };
+  
   
   
   window.deleteBook = async function (bookId) {
@@ -103,30 +135,40 @@ import {
   };
   
   window.loadBooks = async function () {
-    const booksRef = collection(db, "books");
-    const q = query(booksRef, where("username", "==", username));
-    const snap = await getDocs(q);
     const bookList = document.getElementById("bookList");
     bookList.innerHTML = "";
   
+    const booksRef = collection(db, "books");
+    const q = query(booksRef, where("username", "==", username));
+    const snap = await getDocs(q);
+  
     if (snap.empty) {
-      bookList.innerHTML = "<li>No books yet.</li>";
+      bookList.innerHTML = "<li>You don't have any books in your library yet.</li>";
       return;
     }
   
     snap.forEach(docSnap => {
       const b = docSnap.data();
       const li = document.createElement("li");
+      li.classList.add("bookRow");
+  
       li.innerHTML = `
-        <strong>${b.title}</strong> by ${b.author} (${b.publisher}) <br>
-        ISBN: ${b.isbn}
-        <div>
+        <div class="bookInfo">
+          <strong>${b.title}</strong><br>
+          by ${b.author}<br>
+          Publisher: ${b.publisher}<br>
+          ISBN: ${b.isbn}<br>
           <button class="delete-button" onclick="deleteBook('${docSnap.id}')">Remove</button>
         </div>
+        <div class="bookThumbnail">
+          ${b.thumbnail ? `<img src="${b.thumbnail}" alt="Book cover">` : ""}
+        </div>
       `;
+  
       bookList.appendChild(li);
     });
-  }
+  };
+  
 
   window.searchGoogleBooks = async function () {
     const title = document.getElementById("titleInput").value.trim();
@@ -140,7 +182,7 @@ import {
     }
   
     const booksRef = collection(db, "books");
-    let userQuery = query(booksRef, where("username", "==", username));
+    const userQuery = query(booksRef, where("username", "==", username));
     const userSnap = await getDocs(userQuery);
   
     const localMatches = [];
@@ -153,24 +195,27 @@ import {
       }
     });
   
-    // 📚 List library matches (if any)
+    // 📚 Local results
     if (localMatches.length > 0) {
       resultsDiv.innerHTML += `<p><strong>📚 Books already in your library:</strong></p>`;
       localMatches.forEach(b => {
         const bookDiv = document.createElement("div");
-        bookDiv.style.marginBottom = "15px";
+        bookDiv.classList.add("bookRow");
         bookDiv.innerHTML = `
-          <strong>${b.title}</strong><br>
-          by ${b.author}<br>
-          Publisher: ${b.publisher}<br>
-          ISBN: ${b.isbn}<br>
-          <div style="color: green;">✅ Already in your library.</div>
+          <div class="bookInfo">
+            <strong>${b.title}</strong><br>
+            by ${b.author}<br>
+            Publisher: ${b.publisher}<br>
+            ISBN: ${b.isbn}<br>
+            <div style="color: green;">✅ Already in your library.</div>
+          </div>
+          <div class="bookThumbnail"></div>
         `;
         resultsDiv.appendChild(bookDiv);
       });
     }
   
-    // 🔎 Now search Google Books regardless
+    // 🔍 Google Books API fallback
     let queryStr = "";
     if (title) queryStr += `intitle:${title}`;
     if (author) queryStr += (queryStr ? "+" : "") + `inauthor:${author}`;
@@ -185,6 +230,7 @@ import {
       }
   
       resultsDiv.innerHTML += `<p><strong>🔍 Books found on Google Books:</strong></p>`;
+  
       data.items.forEach(book => {
         const info = book.volumeInfo;
         const isbnObj = (info.industryIdentifiers || []).find(i => i.type.includes("ISBN"));
@@ -192,15 +238,22 @@ import {
         const bookTitle = info.title || "Untitled";
         const bookAuthor = (info.authors && info.authors.join(", ")) || "Unknown Author";
         const publisher = info.publisher || "Unknown Publisher";
+        const thumbnail = info.imageLinks?.thumbnail || "";
   
         const bookDiv = document.createElement("div");
-        bookDiv.style.marginBottom = "15px";
+        bookDiv.classList.add("bookRow");
+  
         bookDiv.innerHTML = `
-          <strong>${bookTitle}</strong><br>
-          by ${bookAuthor}<br>
-          Publisher: ${publisher}<br>
-          ISBN: ${isbn}<br>
-          <button class="addBookBtn" onclick="addToLibrary('${isbn}', '${bookTitle.replace(/'/g, "\\'")}', '${bookAuthor.replace(/'/g, "\\'")}', '${publisher.replace(/'/g, "\\'")}')">Add to My Library</button>
+          <div class="bookInfo">
+            <strong>${bookTitle}</strong><br>
+            by ${bookAuthor}<br>
+            Publisher: ${publisher}<br>
+            ISBN: ${isbn}<br>
+            <button class="addBookBtn" onclick="addToLibrary('${isbn}', '${bookTitle.replace(/'/g, "\\'")}', '${bookAuthor.replace(/'/g, "\\'")}', '${publisher.replace(/'/g, "\\'")}')">Add to My Library</button>
+          </div>
+          <div class="bookThumbnail">
+            ${thumbnail ? `<img src="${thumbnail}" alt="Book cover">` : ""}
+          </div>
         `;
   
         resultsDiv.appendChild(bookDiv);
@@ -209,33 +262,42 @@ import {
       console.error("Google Books API error:", error);
       resultsDiv.innerHTML += "<p>⚠️ Error searching Google Books.</p>";
     }
-  };
+  };  
   
   
   window.addToLibrary = async function (isbn, title, author, publisher) {
     const booksRef = collection(db, "books");
   
-    // Check for duplicates first
+    // Check for duplicates
     const q = query(booksRef, where("isbn", "==", isbn), where("username", "==", username));
     const snap = await getDocs(q);
-  
     if (!snap.empty) {
       alert("You already have this book in your library.");
       return;
     }
   
-    await addDoc(booksRef, { isbn, title, author, publisher, username });
+    // Fetch thumbnail from Google Books
+    let thumbnail = "";
+    try {
+      const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);
+      const data = await res.json();
+      thumbnail = data.items?.[0]?.volumeInfo?.imageLinks?.thumbnail || "";
+    } catch (e) {
+      console.warn("No thumbnail found for", isbn);
+    }
+  
+    await addDoc(booksRef, {
+      isbn,
+      title,
+      author,
+      publisher,
+      thumbnail,
+      username
+    });
+  
     alert(`✅ "${title}" added to your library.`);
     loadBooks();
   };
-
-  window.clearSearch = function () {
-    document.getElementById("isbnInput").value = "";
-    document.getElementById("bookInfo").innerHTML = "";
   
-    document.getElementById("titleInput").value = "";
-    document.getElementById("authorInput").value = "";
-    document.getElementById("searchResults").innerHTML = "";
-  };
   
   

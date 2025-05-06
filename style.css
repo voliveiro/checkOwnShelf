@@ -66,6 +66,27 @@ button:hover {
   background-color: #5C9EAD;
 }
 
+.bookRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 12px;
+  background-color: #FFFFFF;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.bookInfo {
+  flex: 1;
+  font-size: 0.95em;
+}
+
+.bookThumbnail img {
+  max-height: 120px;
+  border-radius: 4px;
+}
+
 #bookInfo {
   margin-top: 15px;
   font-weight: bold;
