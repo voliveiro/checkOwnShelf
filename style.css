@@ -126,19 +126,20 @@ button p{
 .bookRow {
   display: flex;
   justify-content: center;
+  align-items: center;
   max-width: 70%;
   gap: 16px;
   margin-bottom: 20px;
   padding: 12px;
   background-color: #FFFFFF;
-  /* border: 1px solid #ccc; */
-  border: 2px solid red; 
+  border: 1px solid #ccc;
   border-radius: 8px;
 }
 
 .bookInfo {
   flex: 1;
-  font-size: 0.95em;
+  font-size: 1.5em;
+  width: 80%; 
 }
 
 .bookThumbnail img {
@@ -214,7 +215,8 @@ button.logout-button {
 
 button.addBookBtn {
   padding: 6px 12px;
-  font-size: 0.85em;
+  font-size: 1.5em;
+  font-weight: bold; 
   width: auto;
   display: inline-block;
   background-color: #5C9EAD;

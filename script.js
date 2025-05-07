@@ -256,7 +256,7 @@ import {
             by ${bookAuthor}<br>
             Publisher: ${publisher}<br>
             ISBN: ${isbn}<br>
-            <button class="addBookBtn" onclick="addToLibrary('${isbn}', '${bookTitle.replace(/'/g, "\\'")}', '${bookAuthor.replace(/'/g, "\\'")}', '${publisher.replace(/'/g, "\\'")}')">Add to My Library</button>
+            <button class="addBookBtn" onclick="addToLibrary('${isbn}', '${bookTitle.replace(/'/g, "\\'")}', '${bookAuthor.replace(/'/g, "\\'")}', '${publisher.replace(/'/g, "\\'")}')">Add to Library</button>
           </div>
           <div class="bookThumbnail">
             ${thumbnail ? `<img src="${thumbnail}" alt="Book cover">` : ""}
