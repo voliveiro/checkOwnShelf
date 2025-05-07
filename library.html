@@ -17,15 +17,17 @@
   
 </head>
 <body>
-  <div class="app">
-    <h1>Check Own Shelf</h1>
-    <h2>Library</h2>
+  <header>
+    <h1>ReadIt & Keep</h1>
+    <h2>shelfcare for readers</h2>
+  </header>
 
+  <div class="app">
     <!-- ISBN Search Section -->
     <div class="inputFields"> 
       <h3>Search by ISBN</h3>
         <input type="text" id="isbnInput" placeholder="Enter ISBN">
-      <button onclick="checkLibrary()">Check ISBN</button>
+      <button onclick="checkLibrary()"><p> Check ISBN </p></button>
     </div>
 
     <!-- Title/Author Search Section -->
@@ -33,8 +35,8 @@
     <h3>Search by Title and/or Author</h3>
       <input type="text" id="titleInput" placeholder="Search by title">
       <input type="text" id="authorInput" placeholder="Search by author">
-      <button onclick="searchGoogleBooks()">Search Library</button>
-      <button onclick="clearSearch()">Clear Search</button>
+      <button onclick="searchGoogleBooks()"><p>Search Library</p></button>
+      <button onclick="clearSearch()"><p> Clear Search </p></button>
     </div>
 
     <div id="searchResults"></div>
@@ -45,8 +47,10 @@
     <h3>Your Books</h3>
     <button onclick="loadBooks()">View My Library</button>
   </div>
-  <button class="logout-button" onclick="logout()">Logout</button>
+
   <ul id="bookList"></ul> 
+
+  <button class="logout-button" onclick="logout()">Logout</button>
 </div>
 
 

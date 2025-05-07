@@ -1,5 +1,9 @@
-html, body {
-  height: 100%;
+body {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  min-height: 100vh; 
   margin: 0;
   padding: 0;
   background-color: #EEEEEE;
@@ -7,30 +11,44 @@ html, body {
   color: #326273;
 }
 
-.frontpage {
-  max-height: 50%; 
-  margin: 2%; 
+.header {
+  margin-top: 10px; 
+  margin-bottom: 5px;
   background-color: #EEEEEE;
   padding: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 }
 
-.frontpage h1 {
+h1 {
   margin-bottom: 0;
   text-align: center;
   color: #326273;
   font-size: 3em; 
 }
 
-.frontpage h2 {
+h2 {
   margin-top: 0;
   font-weight: normal;
   font-size: 2em;
   color: #326273;
   text-align: center;
 }
+
+.frontpage {
+  display: flex;
+  flex-direction: column; /* Stack child elements vertically */
+  align-items: center; /* Center child elements horizontally */
+  justify-content: center; /* Center child elements vertically */
+  width: 100%; /* Allow it to span the full width */
+  max-width: 500px; /* Optional: Limit the width of the frontpage */
+  padding: 20px; /* Add some padding for spacing */
+  background-color: #f9f9f9; /* Optional: Add a background color */
+  border-radius: 10px; /* Optional: Add rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+
 .app {
   min-height: 95%;          /* allow vertical expansion */
   margin: 2%;               /* 5% on all sides */
@@ -45,20 +63,6 @@ html, body {
   justify-content: space-between;
 }
 
-.app h1 {
-  margin-bottom: 0;
-  text-align: center;
-  color: #326273;
-  font-size: 3em; 
-}
-
-.app h2 {
-  margin-top: 0;
-  font-weight: normal;
-  font-size: 2em;
-  color: #326273;
-  text-align: center;
-}
 
 .inputFields {
   display: flex;
@@ -70,19 +74,25 @@ html, body {
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-  width: 70%;
-  padding: 12px;
+  height: 100px; 
+  width: 100%;
+  padding: 10px;
   margin: 10px 0;
   border: 1px solid #5C9EAD;
   border-radius: 6px;
   background-color: #FFFFFF;
-  font-size: 1em;
+  font-size: 1.5em;
   box-sizing: border-box;
   color: #326273;
+  box-sizing: border-box; 
 }
 
 button {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
   width: 70%;
+  height: 70px; 
   padding: 12px;
   margin: 10px 0;
   background-color: #326273;
@@ -92,6 +102,8 @@ button {
   font-size: 1em;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  font-size: 1.2em; 
+  font-weight: bold
 }
 
 button:hover {
@@ -191,11 +203,11 @@ button.logout-button {
   }
 
   h1 {
-    font-size: 5em; 
+    font-size: 10em; 
   }
 
   h2 {
-    font-size: 3em;
+    font-size: 5em;
   }
 
   /* h1 {
@@ -232,9 +244,13 @@ button.addBookBtn:hover {
 
 footer{
   font-size: 1em;
+  text-align: left; 
+  background-color: #EEEEEE; 
+  padding: 10px; 
   margin-left: 5%;
   margin-right:5%;
   margin-bottom: 10%;
+  margin-top: 30%; 
 }
 
 footer p {
