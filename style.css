@@ -25,13 +25,13 @@ h1 {
   margin-bottom: 0;
   text-align: center;
   color: #326273;
-  font-size: 3em; 
+  font-size: 8em; 
 }
 
 h2 {
   margin-top: 0;
   font-weight: normal;
-  font-size: 2em;
+  font-size: 6em;
   color: #326273;
   text-align: center;
 }
@@ -81,7 +81,7 @@ input[type="password"] {
   border: 1px solid #5C9EAD;
   border-radius: 6px;
   background-color: #FFFFFF;
-  font-size: 1.5em;
+  font-size: 3em;
   box-sizing: border-box;
   color: #326273;
   box-sizing: border-box; 
@@ -102,12 +102,15 @@ button {
   font-size: 1em;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  font-size: 1.2em; 
-  font-weight: bold
 }
 
 button:hover {
   background-color: #5C9EAD;
+}
+
+button p{
+  font-size: 1.5em; 
+  font-weight: bold;
 }
 
 #booklist {
