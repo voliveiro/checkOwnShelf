@@ -2,7 +2,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #FFFFFF;
+  background-color: #EEEEEE;
   font-family: 'Georgia', serif;
   color: #326273;
 }
@@ -74,14 +74,25 @@ button:hover {
   background-color: #5C9EAD;
 }
 
+#booklist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 70%; 
+  margin: 0 auto;
+  border: 5px solid blue; 
+
+}
 .bookRow {
   display: flex;
-  align-items: flex-start;
+  justify-content: center;
+  max-width: 70%;
   gap: 16px;
   margin-bottom: 20px;
   padding: 12px;
   background-color: #FFFFFF;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
+  border: 2px solid red; 
   border-radius: 8px;
 }
 
@@ -151,8 +162,16 @@ button.logout-button {
 /* 📱 Mobile responsiveness */
 @media screen and (max-width: 480px) {
   .app {
-    margin: 20px;
-    padding: 16px;
+    margin: 5px;
+    padding: 5px;
+  }
+
+  .app h1 {
+    font-size: 5em; 
+  }
+
+  .app h2 {
+    font-size: 3em;
   }
 
   /* h1 {
