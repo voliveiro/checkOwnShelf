@@ -7,6 +7,30 @@ html, body {
   color: #326273;
 }
 
+.frontpage {
+  max-height: 50%; 
+  margin: 2%; 
+  background-color: #EEEEEE;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.frontpage h1 {
+  margin-bottom: 0;
+  text-align: center;
+  color: #326273;
+  font-size: 3em; 
+}
+
+.frontpage h2 {
+  margin-top: 0;
+  font-weight: normal;
+  font-size: 2em;
+  color: #326273;
+  text-align: center;
+}
 .app {
   min-height: 95%;          /* allow vertical expansion */
   margin: 2%;               /* 5% on all sides */
