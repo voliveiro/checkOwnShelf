@@ -36,6 +36,11 @@ h2 {
   text-align: center;
 }
 
+h3 {
+  font-size: 2.5em; 
+  font-weight: bold;
+}
+
 .frontpage {
   display: flex;
   flex-direction: column; /* Stack child elements vertically */
@@ -82,7 +87,7 @@ input[type="password"] {
   border: 1px solid #5C9EAD;
   border-radius: 6px;
   background-color: #FFFFFF;
-  font-size: 3em;
+  font-size: 2em;
   box-sizing: border-box;
   color: #326273;
   box-sizing: border-box; 
@@ -103,6 +108,7 @@ button {
   font-size: 1em;
   cursor: pointer;
   transition: background-color 0.2s ease;
+
 }
 
 button:hover {
@@ -125,10 +131,10 @@ button p{
 }
 .bookRow {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   max-width: 70%;
-  gap: 16px;
+  gap: 10px;
   margin-bottom: 20px;
   padding: 12px;
   background-color: #FFFFFF;
@@ -137,13 +143,28 @@ button p{
 }
 
 .bookInfo {
-  flex: 1;
+  flex: 1.5;
   font-size: 1.5em;
-  width: 80%; 
+  padding: 10px;  
 }
 
+.bookThumbnail {
+  flex: 1.5; 
+  max-width: 100%;
+  height: auto; /* Fixed height for the thumbnail */ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 4px;
+  background-color: #ffffff; /* Placeholder background color */}
+
+
 .bookThumbnail img {
-  max-height: 120px;
+  max-height: 200px;
+  max-width: 100%; 
+  width: auto; 
+  height: auto; 
   border-radius: 4px;
 }
 
@@ -173,14 +194,18 @@ button.delete-button {
   background-color: #f7c2ae;
   color: #5a2d1b;
   border: none;
-  padding: 5px 10px;
-  font-size: 0.8em;
+  font-size: 1em;
+  font-weight: bold; 
   border-radius: 4px;
   cursor: pointer;
   margin-top: 10px;
   display: inline-block;
   width: auto;
-  min-width: 60px;
+  width: 50%;
+  height: 75px; 
+  display: flex; 
+  justify-content: center;
+  align-items: center;
 }
 
 button.delete-button:hover {
@@ -188,15 +213,15 @@ button.delete-button:hover {
 }
 
 button.logout-button {
-  width: auto;
-  padding: 8px 16px;
-  font-size: 0.9em;
+  width: 40%;
   border-radius: 4px;
   background-color: grey;
   color: white;
   border: none;
   margin: 30px auto 0;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 }
 
@@ -208,7 +233,7 @@ button.logout-button {
   }
 
   button.logout-button {
-    font-size: 0.85em;
+    font-size: 1.5em;
     padding: 6px 12px;
   }
 }

@@ -165,7 +165,7 @@ import {
           by ${b.author}<br>
           Publisher: ${b.publisher}<br>
           ISBN: ${b.isbn}<br>
-          <button class="delete-button" onclick="deleteBook('${docSnap.id}')">Remove</button>
+          <button class="delete-button" onclick="deleteBook('${docSnap.id}')"><p> Remove </p> </button>
         </div>
         <div class="bookThumbnail">
           ${b.thumbnail ? `<img src="${b.thumbnail}" alt="Book cover">` : ""}
