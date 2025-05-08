@@ -19,7 +19,38 @@ import {
     localStorage.removeItem("username");
     window.location.href = "index.html";
   };
+   
+  document.addEventListener("DOMContentLoaded", function () {
+    const libraryMenu = document.getElementById("libraryMenu");
+    const addMenu = document.getElementById("addMenu");
+    const myLibrary = document.getElementById("my-library");
+    const searchAdd = document.getElementById("search-add");
   
+    // Debug: Log elements to ensure they are correctly referenced
+    console.log("libraryMenu:", libraryMenu);
+    console.log("addMenu:", addMenu);
+    console.log("myLibrary:", myLibrary);
+    console.log("searchAdd:", searchAdd);
+  
+    // Hide both sections by default on page load
+    myLibrary.style.display = "none";
+    searchAdd.style.display = "none";
+  
+    // Show "Library" section and hide "Add" section
+    libraryMenu.addEventListener("click", function () {
+      console.log("Library menu clicked");
+      myLibrary.style.display = "block"; // Show the library section
+      searchAdd.style.display = "none"; // Hide the add/search section
+    });
+  
+    // Show "Add" section and hide "Library" section
+    addMenu.addEventListener("click", function () {
+      console.log("Add menu clicked");
+      myLibrary.style.display = "none"; // Hide the library section
+      searchAdd.style.display = "block"; // Show the add/search section
+    });
+  });
+
   window.checkLibrary = async function () {
     const isbnInput = document.getElementById("isbnInput").value.trim();
     const resultsDiv = document.getElementById("searchResults");

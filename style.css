@@ -75,12 +75,12 @@ li ul:last-child {
 }
 
 li ul:hover {
-  background-color: #326273; /* Change background color on hover */
+  background-color: #326273;  
 }
 
 li ul:active {
   background-color: #1f3e4a; /* Darker shade for when the item is pressed */
-  color: #e0e0e0; /* Optional: Change text color when pressed */
+  color: #e0e0e0; /* Change text color when pressed */
 }
 
 /* Styling specific to frontpage index.html */ 
@@ -103,6 +103,13 @@ h3 {
 }
 
 /* Styling for main app */ 
+
+/* Hide both sections by default */
+#my-library,
+#search-add {
+  display: none; /* Hide both sections initially */
+}
+
 main {
   width: 100%; 
   min-height: 95%;          /* allow vertical expansion */
@@ -115,6 +122,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-bottom : 6px solid #4b838f;
 }
 
 
@@ -139,6 +147,32 @@ input[type="password"] {
   box-sizing: border-box;
   color: #326273;
   box-sizing: border-box; 
+}
+
+.inputFields button {
+  width: 70%; 
+}
+
+/*Styling for logout bar*/ 
+
+.logout-bar {
+  width: 100%; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  border-bottom : 6px solid #4b838f;
+}
+
+#logout-button {
+  width: 200px; 
+  border-radius: 4px;
+  background-color: grey;
+  color: white;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 button {
@@ -216,28 +250,29 @@ button #scanBarcode {
 
 .bookThumbnail {
   flex: 1.5; 
-  max-width: 100%;
-  height: auto; /* Fixed height for the thumbnail */ 
+  max-width: 150%;
+  height: 150%; 
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  border-radius: 4px;
+  /* overflow: hidden; */
+  border: 2px solid red; 
   background-color: #ffffff; /* Placeholder background color */}
 
 
 .bookThumbnail img {
-  max-height: 200px;
-  max-width: 100%; 
-  width: auto; 
-  height: auto; 
-  border-radius: 4px;
+  max-height: 120%;
+  max-width: 120%; 
+  /* width: auto; 
+  height: auto;  */
+  
 }
 
 #bookInfo {
   margin-top: 15px;
   font-weight: bold;
   word-wrap: break-word;
+  font-size: 2em; 
 }
 
 ul#bookList {
@@ -278,18 +313,6 @@ button.delete-button:hover {
   background-color: #eaa185;
 }
 
-button.logout-button {
-  width: 40%;
-  border-radius: 4px;
-  background-color: grey;
-  color: white;
-  border: none;
-  margin: 30px auto 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
 
 /* 📱 Mobile responsiveness */
 @media screen and (max-width: 480px) {
@@ -306,8 +329,7 @@ button.logout-button {
 
 button.addBookBtn {
   padding: 6px 12px;
-  font-size: 1.5em;
-  font-weight: bold; 
+  font-size: 1.2em;
   width: auto;
   display: inline-block;
   background-color: #5C9EAD;
@@ -322,6 +344,10 @@ button.addBookBtn {
 button.addBookBtn:hover {
   background-color: #326273;
 }
+
+
+ 
+/* Styling for footer */
 
 footer{
   font-size: 1em;

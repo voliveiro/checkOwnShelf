@@ -22,15 +22,16 @@
     <h2>shelfcare for readers</h2>
   </header>
   <li id="menuBar"> 
-      <ul><p>Add</p></ul> 
-      <ul><p>View</p></ul>
+      <ul id="libraryMenu"><p>Library</p></ul> 
+      <ul id="addMenu"><p>Add</p></ul>
   </li>
 
 
   <main>
-    <!-- ISBN Search Section -->
+
     <div class="feature" id="search-add"> 
       <div class="inputFields">
+        <!-- ISBN Search Section -->
         <h3>Search by ISBN</h3>
         <div id="barcode-scanner" style="display: none; width: 300px; height: 300px;"></div>
         <input type="text" id="isbnInput" placeholder="Enter ISBN">
@@ -40,19 +41,20 @@
 
     <!-- Title/Author Search Section -->
     <div class="inputFields"> 
-    <h3>Search by Title and/or Author</h3>
-      <input type="text" id="titleInput" placeholder="Search by title">
-      <input type="text" id="authorInput" placeholder="Search by author">
+      <h3>Search by Title and/or Author</h3>
+          <input type="text" id="titleInput" placeholder="Search by title">
+          <input type="text" id="authorInput" placeholder="Search by author">
       
+      <button onclick="searchGoogleBooks()"><p>Search Library</p></button>
     </div>
 
     <div id="searchResults"></div>
 
-    <button onclick="searchGoogleBooks()"><p>Search Library</p></button>
+    
       <button onclick="clearSearch()"><p> Clear Search </p></button>
 </div>
 
-<div class="feature" id="search-add"> 
+<div class="feature" id="my-library"> 
     <div class="inputFields"> 
       <h3>Your Books</h3>
       <button onclick="loadBooks()"> <p> View My Library </p></button>
@@ -60,9 +62,12 @@
 
     <ul id="bookList"></ul> 
 
-    <button class="logout-button" onclick="logout()"><p> Logout</p></button>
   </div>
 </main>
+
+<div id="logout-bar">
+  <button id="logout-button" onclick="logout()"><p> Logout</p></button>
+</div>
 
 
   
