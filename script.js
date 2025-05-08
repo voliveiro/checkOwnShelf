@@ -107,15 +107,15 @@ import {
   
       resultsDiv.innerHTML = `
         <div class="bookRow">
+          <div class="bookThumbnail">
+            ${thumbnail ? `<img src="${thumbnail}" alt="Book cover">` : ""}
+          </div>
           <div class="bookInfo">
             <strong>${title}</strong><br>
             by ${author}<br>
             Publisher: ${publisher}<br>
             ISBN: ${isbnInput}<br>
             <button class="addBookBtn"> Add to Library</button>
-          </div>
-          <div class="bookThumbnail">
-            ${thumbnail ? `<img src="${thumbnail}" alt="Book cover">` : ""}
           </div>
         </div>
       `;
@@ -132,6 +132,9 @@ import {
   
         resultsDiv.innerHTML = `
           <div class="bookRow">
+            <div class="bookThumbnail">
+              ${thumbnail ? `<img src="${thumbnail}" alt="Book cover">` : ""}
+            </div>
             <div class="bookInfo">
               <strong>${title}</strong><br>
               by ${author}<br>
@@ -139,9 +142,7 @@ import {
               ISBN: ${isbnInput}<br>
               <div style="color: green; margin-top: 8px;">✅ Added to your library!</div>
             </div>
-            <div class="bookThumbnail">
-              ${thumbnail ? `<img src="${thumbnail}" alt="Book cover">` : ""}
-            </div>
+            
           </div>
         `;
         loadBooks();
@@ -192,14 +193,14 @@ import {
   
       li.innerHTML = `
         <div class="bookInfo">
+          <div class="bookThumbnail">
+          ${b.thumbnail ? `<img src="${b.thumbnail}" alt="Book cover">` : ""}
+        </div>
           <strong>${b.title}</strong><br>
           by ${b.author}<br>
           Publisher: ${b.publisher}<br>
           ISBN: ${b.isbn}<br>
           <button class="delete-button" onclick="deleteBook('${docSnap.id}')"><p> Remove </p> </button>
-        </div>
-        <div class="bookThumbnail">
-          ${b.thumbnail ? `<img src="${b.thumbnail}" alt="Book cover">` : ""}
         </div>
       `;
   
@@ -283,15 +284,16 @@ import {
   
         bookDiv.innerHTML = `
           <div class="bookInfo">
+            <div class="bookThumbnail">
+            ${thumbnail ? `<img src="${thumbnail}" alt="Book cover">` : ""}
+          </div>
             <strong>${bookTitle}</strong><br>
             by ${bookAuthor}<br>
             Publisher: ${publisher}<br>
             ISBN: ${isbn}<br>
             <button class="addBookBtn" onclick="addToLibrary('${isbn}', '${bookTitle.replace(/'/g, "\\'")}', '${bookAuthor.replace(/'/g, "\\'")}', '${publisher.replace(/'/g, "\\'")}')">Add to Library</button>
           </div>
-          <div class="bookThumbnail">
-            ${thumbnail ? `<img src="${thumbnail}" alt="Book cover">` : ""}
-          </div>
+          
         `;
   
         resultsDiv.appendChild(bookDiv);
