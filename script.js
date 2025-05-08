@@ -74,15 +74,15 @@ import {
   
       resultsDiv.innerHTML = `
         <div class="bookRow">
+          <div class="bookThumbnail">
+            ${book.thumbnail ? `<img src="${book.thumbnail}" alt="Book cover">` : ""}
+          </div>
           <div class="bookInfo">
             <strong>${book.title}</strong><br>
             by ${book.author}<br>
             Publisher: ${book.publisher}<br>
             ISBN: ${book.isbn}<br>
             <div style="color: green; margin-top: 8px;">✅ This book is already in your library.</div>
-          </div>
-          <div class="bookThumbnail">
-            ${book.thumbnail ? `<img src="${book.thumbnail}" alt="Book cover">` : ""}
           </div>
         </div>
       `;
