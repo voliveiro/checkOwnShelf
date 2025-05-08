@@ -27,38 +27,42 @@
   </li>
 
 
-  <div class="app">
+  <main>
     <!-- ISBN Search Section -->
-    <div class="inputFields">
-      <h3>Search by ISBN</h3>
-      <button id="scanBarcode">Scan Barcode</button>
-      <div id="barcode-scanner" style="display: none; width: 300px; height: 300px;"></div>
-      <input type="text" id="isbnInput" placeholder="Enter ISBN">
-      <button onclick="checkLibrary()"><p>Check ISBN</p></button>
-    </div>
+    <div class="feature" id="search-add"> 
+      <div class="inputFields">
+        <h3>Search by ISBN</h3>
+        <div id="barcode-scanner" style="display: none; width: 300px; height: 300px;"></div>
+        <input type="text" id="isbnInput" placeholder="Enter ISBN">
+        <button onclick="checkLibrary()"><p>Check ISBN</p></button>
+      </div>
+
 
     <!-- Title/Author Search Section -->
     <div class="inputFields"> 
     <h3>Search by Title and/or Author</h3>
       <input type="text" id="titleInput" placeholder="Search by title">
       <input type="text" id="authorInput" placeholder="Search by author">
-      <button onclick="searchGoogleBooks()"><p>Search Library</p></button>
-      <button onclick="clearSearch()"><p> Clear Search </p></button>
+      
     </div>
 
     <div id="searchResults"></div>
 
-
-    
-  <div class="inputFields"> 
-    <h3>Your Books</h3>
-    <button onclick="loadBooks()"> <p> View My Library </p></button>
-  </div>
-
-  <ul id="bookList"></ul> 
-
-  <button class="logout-button" onclick="logout()"><p> Logout</p></button>
+    <button onclick="searchGoogleBooks()"><p>Search Library</p></button>
+      <button onclick="clearSearch()"><p> Clear Search </p></button>
 </div>
+
+<div class="feature" id="search-add"> 
+    <div class="inputFields"> 
+      <h3>Your Books</h3>
+      <button onclick="loadBooks()"> <p> View My Library </p></button>
+    </div>
+
+    <ul id="bookList"></ul> 
+
+    <button class="logout-button" onclick="logout()"><p> Logout</p></button>
+  </div>
+</main>
 
 
   
