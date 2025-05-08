@@ -115,7 +115,7 @@ import {
             by ${author}<br>
             Publisher: ${publisher}<br>
             ISBN: ${isbnInput}<br>
-            <button class="addBookBtn"> Add to Library</button>
+            <button class="addBookBtn"> Add </button>
           </div>
         </div>
       `;
@@ -192,10 +192,11 @@ import {
       li.classList.add("bookRow");
   
       li.innerHTML = `
-        <div class="bookInfo">
+        <div class="bookRow">
           <div class="bookThumbnail">
-          ${b.thumbnail ? `<img src="${b.thumbnail}" alt="Book cover">` : ""}
-        </div>
+            ${b.thumbnail ? `<img src="${b.thumbnail}" alt="Book cover">` : ""}
+          </div>
+        <div class="bookInfo">
           <strong>${b.title}</strong><br>
           by ${b.author}<br>
           Publisher: ${b.publisher}<br>
@@ -283,15 +284,16 @@ import {
         bookDiv.classList.add("bookRow");
   
         bookDiv.innerHTML = `
-          <div class="bookInfo">
+          <div class="bookRow">
             <div class="bookThumbnail">
             ${thumbnail ? `<img src="${thumbnail}" alt="Book cover">` : ""}
           </div>
+          <div class="bookInfo">
             <strong>${bookTitle}</strong><br>
             by ${bookAuthor}<br>
             Publisher: ${publisher}<br>
             ISBN: ${isbn}<br>
-            <button class="addBookBtn" onclick="addToLibrary('${isbn}', '${bookTitle.replace(/'/g, "\\'")}', '${bookAuthor.replace(/'/g, "\\'")}', '${publisher.replace(/'/g, "\\'")}')">Add to Library</button>
+            <button class="addBookBtn" onclick="addToLibrary('${isbn}', '${bookTitle.replace(/'/g, "\\'")}', '${bookAuthor.replace(/'/g, "\\'")}', '${publisher.replace(/'/g, "\\'")}')">Add </button>
           </div>
           
         `;

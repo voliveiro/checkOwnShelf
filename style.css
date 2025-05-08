@@ -1,5 +1,12 @@
+.cal-sans-regular {
+  font-family: "Cal Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 body {
   display: flex;
+  font-family: "Cal Sans", sans-serif;
   flex-direction: column; 
   justify-content: center; 
   align-items: center; 
@@ -7,7 +14,6 @@ body {
   margin: 0;
   padding: 5px;
   background-color: #EEEEEE;
-  font-family: 'Georgia', serif;
   color: #326273;
 }
 
@@ -233,7 +239,8 @@ button #scanBarcode {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 50%;
+  min-width: 70%; 
+  max-width: 70%;
   gap: 10px;
   margin-bottom: 20px;
   padding: 12px;
@@ -250,7 +257,6 @@ button #scanBarcode {
 
 .bookThumbnail {
   flex: 1; 
-  max-width: 100%;
   height: 100%; 
   display: inline-block;
   justify-content: center;
@@ -262,7 +268,7 @@ button #scanBarcode {
 .bookThumbnail img {
   display: block;
   width: 100px; 
-  height: 200px;
+  /* height: 200px; */
   height: auto;
   
 }
@@ -326,10 +332,10 @@ button.delete-button:hover {
   }
 }
 
-button.addBookBtn {
-  padding: 6px 12px;
+.addBookBtn {
+  padding: 10px 10px;
   font-size: 1.2em;
-  width: auto;
+  width: 100px;
   display: inline-block;
   background-color: #5C9EAD;
   color: #fff;
