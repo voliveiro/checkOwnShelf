@@ -5,13 +5,15 @@ body {
   align-items: center; 
   min-height: 100vh; 
   margin: 0;
-  padding: 0;
+  padding: 5px;
   background-color: #EEEEEE;
   font-family: 'Georgia', serif;
   color: #326273;
 }
 
-.header {
+/* Header */ 
+
+header {
   margin-top: 10px; 
   margin-bottom: 5px;
   background-color: #EEEEEE;
@@ -19,6 +21,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: auto; 
+  border-bottom : 6px solid #4b838f;
 }
 
 h1 {
@@ -36,7 +40,7 @@ h2 {
   text-align: center;
 }
 
-/* Style the container for the list items */
+/* Menu Bar */
 li {
   display: flex; /* Use Flexbox to arrange items in a row */
   flex-direction: row; /* Ensure items are arranged in a row */
@@ -44,13 +48,13 @@ li {
   align-items: center; /* Vertically align items */
   background-color: #5C9EAD; /* Background color for the container */
   list-style: none; /* Remove default list styling */
-  margin: 0; /* Remove default margin */
+  margin: 20px 0 0 0 ; /* Remove default margin */
   /* border: 3px solid #2d5868; Add a border around the container */
   width: 100%; 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  
 }
 
-/* Style the individual list items */
 li ul {
   flex: 1; /* Each <ul> takes up an equal share of the available space */
   height: 100%; 
@@ -62,7 +66,6 @@ li ul {
   padding: 5px 10px; /* Add padding for clickable area */
   transition: background-color 0.3s ease; /* Smooth hover effect */
   border-right: 1px solid rgba(255, 255, 255, 0.5); /* Add a subtle border between items */
-  margin: 0;
   
 }
 
@@ -71,7 +74,6 @@ li ul:last-child {
   border-right: none;
 }
 
-/* Hover effect for list items */
 li ul:hover {
   background-color: #326273; /* Change background color on hover */
 }
@@ -80,6 +82,8 @@ li ul:active {
   background-color: #1f3e4a; /* Darker shade for when the item is pressed */
   color: #e0e0e0; /* Optional: Change text color when pressed */
 }
+
+/* Styling specific to frontpage index.html */ 
 h3 {
   font-size: 2.5em; 
   font-weight: bold;
@@ -98,15 +102,15 @@ h3 {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
 }
 
+/* Styling for main app */ 
 main {
   width: 100%; 
   min-height: 95%;          /* allow vertical expansion */
   margin: 2%;               /* 5% on all sides */
   background-color: #EEEEEE;
   padding: 50px;
-  border-radius: 12px;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
-  border-left: 6px solid #5C9EAD;
+  border-top: 6px solid #4b838f;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
