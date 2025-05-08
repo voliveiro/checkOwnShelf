@@ -36,6 +36,50 @@ h2 {
   text-align: center;
 }
 
+/* Style the container for the list items */
+li {
+  display: flex; /* Use Flexbox to arrange items in a row */
+  flex-direction: row; /* Ensure items are arranged in a row */
+  justify-content: space-between; /* Space between the items */
+  align-items: center; /* Vertically align items */
+  background-color: #5C9EAD; /* Background color for the container */
+  list-style: none; /* Remove default list styling */
+  margin: 0; /* Remove default margin */
+  /* border: 3px solid #2d5868; Add a border around the container */
+  width: 100%; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+/* Style the individual list items */
+li ul {
+  flex: 1; /* Each <ul> takes up an equal share of the available space */
+  height: 100%; 
+  text-align: center; /* Center-align the text inside each <ul> */
+  color: #FFFFFF; /* Text color */
+  font-size: 2em; /* Font size */
+  font-weight: bold; /* Make the text bold */
+  cursor: pointer; /* Add a pointer cursor on hover */
+  padding: 5px 10px; /* Add padding for clickable area */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+  border-right: 1px solid rgba(255, 255, 255, 0.5); /* Add a subtle border between items */
+  margin: 0;
+  
+}
+
+/* Remove the border from the last <ul> */
+li ul:last-child {
+  border-right: none;
+}
+
+/* Hover effect for list items */
+li ul:hover {
+  background-color: #326273; /* Change background color on hover */
+}
+
+li ul:active {
+  background-color: #1f3e4a; /* Darker shade for when the item is pressed */
+  color: #e0e0e0; /* Optional: Change text color when pressed */
+}
 h3 {
   font-size: 2.5em; 
   font-weight: bold;
@@ -118,6 +162,24 @@ button:hover {
 button p{
   font-size: 1.5em; 
   font-weight: bold;
+}
+
+button #scanBarcode {
+  background-color: #5C9EAD;
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+#barcode-scanner {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
 }
 
 #booklist {
