@@ -261,7 +261,6 @@ button #scanBarcode {
   display: inline-block;
   justify-content: center;
   align-items: center;
-  border: 2px solid red; 
   background-color: #ffffff; /* Placeholder background color */}
 
 
@@ -368,4 +367,31 @@ footer{
 footer p {
   padding-bottom: 5%;
   margin-top: -10px; 
+}
+ 
+/* Hide scan button unless on mobile */
+.mobile-only {
+  display: none !important;
+}
+
+@media screen and (max-width: 600px) {
+  .mobile-only {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    height: 100px;
+    margin: 10px 0;
+    background-color: #5C9EAD;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .mobile-only p {
+    margin: 0;
+  }
 }

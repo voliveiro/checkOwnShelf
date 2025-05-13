@@ -36,7 +36,8 @@
       <div class="inputFields">
         <!-- ISBN Search Section -->
         <h3>Search by ISBN</h3>
-        <div id="barcode-scanner" style="display: none; width: 300px; height: 300px;"></div>
+        <button id="scanButton" class="mobile-only"><p>Scan Barcode</p></button>
+        <div id="barcode-scanner" class = "mobile-only" style="width: 300px; height: 200px;"></div>
         <input type="text" id="isbnInput" placeholder="Enter ISBN">
         <button onclick="checkLibrary()"><p>Check ISBN</p></button>
       </div>
@@ -80,6 +81,7 @@
       This website is created for learning purposes only. The information provided here should not be considered professional advice. Please note that we make no guarantees regarding the accuracy, completeness, or reliability of the contents of this website. Any actions you take based on the contents of this website are at your own risk. We are not liable for any losses or damages incurred from the use of this website.</p>
   </footer>
   
+  <script src="https://unpkg.com/@ericblade/quagga2@1.2.6/dist/quagga.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
   <script type="module" src="firebase.js"></script>
   <script type="module" src="auth.js"></script>

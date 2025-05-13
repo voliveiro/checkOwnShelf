@@ -341,5 +341,48 @@ import {
     loadBooks();
   };
   
+  // Barcode scanner
   
+  window.startScanner = function () {
+    const scannerElem = document.getElementById("barcode-scanner");
+    scannerElem.style.display = "block";
   
+    Quagga.init({
+      inputStream: {
+        type: "LiveStream",
+        target: scannerElem,
+        constraints: {
+          facingMode: "environment", // back camera
+        },
+      },
+      decoder: {
+        readers: ["ean_reader"], // EAN-13 barcodes
+      },
+    }, function (err) {
+      if (err) {
+        console.error("Quagga init error:", err);
+        return;
+      }
+      Quagga.start();
+    });
+  
+    Quagga.onDetected(result => {
+      const code = result.codeResult.code;
+  
+      if (code.startsWith("978") || code.startsWith("979")) {
+        document.getElementById("isbnInput").value = code;
+        Quagga.stop();
+        scannerElem.style.display = "none";
+        window.checkLibrary();
+      } else {
+        console.log("Detected non-ISBN barcode:", code);
+      }
+    });
+  };
+  
+  // ✅ Attach event handler *after* function is defined
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("scanButton").addEventListener("click", startScanner);
+  });
+  
+ 
