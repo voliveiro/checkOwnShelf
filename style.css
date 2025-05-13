@@ -394,4 +394,18 @@ footer p {
   .mobile-only p {
     margin: 0;
   }
+
+  .mobile-only p {
+    margin: 0;
+  }
+
+  #barcode-scanner.mobile-only {
+    display: block !important;
+    height: 200px;
+    width: 300px;
+    border: 2px dashed #326273;
+  }
+
+  #scanButton.mobile-only {
+    display: inline-flex !important;
 }
