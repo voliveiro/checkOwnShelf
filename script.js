@@ -27,10 +27,10 @@ import {
     const searchAdd = document.getElementById("search-add");
   
     // Debug: Log elements to ensure they are correctly referenced
-    console.log("libraryMenu:", libraryMenu);
-    console.log("addMenu:", addMenu);
-    console.log("myLibrary:", myLibrary);
-    console.log("searchAdd:", searchAdd);
+    // console.log("libraryMenu:", libraryMenu);
+    // console.log("addMenu:", addMenu);
+    // console.log("myLibrary:", myLibrary);
+    // console.log("searchAdd:", searchAdd);
   
     // Hide both sections by default on page load
     myLibrary.style.display = "none";
@@ -306,7 +306,6 @@ import {
     }
   };  
   
-  
   window.addToLibrary = async function (isbn, title, author, publisher) {
     const booksRef = collection(db, "books");
   
@@ -421,10 +420,9 @@ import {
           }
         }
       });   
+    };
     
     // Attach event handler *after* function is defined
     document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("scanButton").addEventListener("click", startScanner);
     });
-  
- 
