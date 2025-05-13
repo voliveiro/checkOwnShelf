@@ -420,11 +420,9 @@ import {
             });
           }
         }
-      });
-      
-       
+      });   
     
-    // ✅ Attach event handler *after* function is defined
+    // Attach event handler *after* function is defined
     document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("scanButton").addEventListener("click", startScanner);
     });

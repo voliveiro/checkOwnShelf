@@ -14,7 +14,7 @@ body {
   margin: 0;
   padding: 5px;
   background-color: #EEEEEE;
-  color: #326273;
+  color: #2b4a59;
 }
 
 /* Header */ 
@@ -34,7 +34,7 @@ header {
 h1 {
   margin-bottom: 0;
   text-align: center;
-  color: #326273;
+  color: #2b4a59;
   font-size: 8em; 
 }
 
@@ -42,7 +42,7 @@ h2 {
   margin-top: 0;
   font-weight: normal;
   font-size: 6em;
-  color: #326273;
+  color: #2b4a59;
   text-align: center;
 }
 
@@ -81,7 +81,7 @@ li ul:last-child {
 }
 
 li ul:hover {
-  background-color: #326273;  
+  background-color: #2b4a59;  
 }
 
 li ul:active {
@@ -151,7 +151,7 @@ input[type="password"] {
   background-color: #FFFFFF;
   font-size: 2em;
   box-sizing: border-box;
-  color: #326273;
+  color: #2b4a59;
   box-sizing: border-box; 
 }
 
@@ -189,7 +189,7 @@ button {
   height: 100px; 
   padding: 12px;
   margin: 10px 0;
-  background-color: #326273;
+  background-color: #2b4a59;
   color: #FFFFFF;
   border: none;
   border-radius: 6px;
@@ -296,7 +296,7 @@ ul#bookList li {
 }
 
 button.delete-button {
-  background-color: #f7c2ae;
+  background-color: #dc3545;
   color: #5a2d1b;
   border: none;
   font-size: 1em;
@@ -346,7 +346,7 @@ button.delete-button:hover {
 }
 
 button.addBookBtn:hover {
-  background-color: #326273;
+  background-color: #2b4a59;
 }
 
 
@@ -370,9 +370,9 @@ footer p {
 }
  
 /* Hide scan button unless on mobile */
-.mobile-only {
+/* .mobile-only {
   display: none !important;
-}
+} */
 
 @media screen and (max-width: 600px) {
   .mobile-only {
@@ -382,8 +382,8 @@ footer p {
     width: 70%;
     height: 100px;
     margin: 10px 0;
-    background-color: #326273;
-    color: #fff;
+    background-color: #2b4a59;
+    color: #ffffff;
     border: none;
     border-radius: 6px;
     font-size: 1em;
@@ -408,4 +408,5 @@ footer p {
 
   #scanButton.mobile-only {
     display: inline-flex !important;
+  }
 }
