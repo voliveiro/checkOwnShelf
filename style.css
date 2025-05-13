@@ -67,7 +67,6 @@ li {
   flex-direction: row; /* Ensure items are arranged in a row */
   justify-content: space-between; /* Space between the items */
   align-items: center; /* Vertically align items */
-  background-color: #5C9EAD; /* Background color for the container */
   list-style: none; /* Remove default list styling */
   margin: 20px 0 0 0 ; /* Remove default margin */
   /* border: 3px solid #2d5868; Add a border around the container */
@@ -84,6 +83,7 @@ li ul {
   font-size: 2em; /* Font size */
   font-weight: bold; /* Make the text bold */
   cursor: pointer; /* Add a pointer cursor on hover */
+  background-color: #5C9EAD;
   padding: 5px 10px; /* Add padding for clickable area */
   transition: background-color 0.3s ease; /* Smooth hover effect */
   border-right: 1px solid rgba(255, 255, 255, 0.5); /* Add a subtle border between items */

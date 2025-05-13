@@ -7,7 +7,7 @@ import {
     query,
     where,
     deleteDoc,
-    doc  // 👈 this was probably missing!
+    doc
   } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
   
 import {
