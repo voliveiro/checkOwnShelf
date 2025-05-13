@@ -346,29 +346,12 @@ import {
   window.startScanner = function () {
     const scannerElem = document.getElementById("barcode-scanner");
     scannerElem.style.display = "block";
-  
-    Quagga.init({
-      inputStream: {
-        type: "LiveStream",
-        target: scannerElem,
-        constraints: {
-          facingMode: "environment", // back camera
-        },
-      },
-      decoder: {
-        readers: ["ean_reader"], // EAN-13 barcodes
-      },
-    }, function (err) {
-      if (err) {
-        console.error("Quagga init error:", err);
-        return;
-      }
-      Quagga.start();
-    });
-  
+
+    Quagga.offDetected();
     Quagga.onDetected(result => {
+      console.log("DETECTED CODE:", result.codeResult);
       const code = result.codeResult.code;
-  
+
       if (code.startsWith("978") || code.startsWith("979")) {
         document.getElementById("isbnInput").value = code;
         Quagga.stop();
@@ -378,11 +361,72 @@ import {
         console.log("Detected non-ISBN barcode:", code);
       }
     });
-  };
-  
-  // ✅ Attach event handler *after* function is defined
-  document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("scanButton").addEventListener("click", startScanner);
-  });
+    
+      Quagga.init({
+        inputStream: {
+          type: "LiveStream",
+          target: scannerElem,
+          constraints: {
+            facingMode: "environment", // back camera
+          },
+        },
+        decoder: {
+          readers: ["ean_reader"], // EAN-13 barcodes
+        },
+
+        locator: {
+          patchSize: "medium", // "x-small", "small", "medium", "large", "x-large"
+          halfSample: true
+        },
+
+        locate: true, // enable locating barcode in image
+        numOfWorkers: 2,
+
+      }, function (err) {
+        if (err) {
+          console.error("Quagga init error:", err);
+          return;
+        }
+        Quagga.start();
+      });
+    
+      Quagga.onProcessed(result => {
+        const drawingCtx = Quagga.canvas.ctx.overlay;
+        const drawingCanvas = Quagga.canvas.dom.overlay;
+      
+        drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+      
+        if (result && result.boxes) {
+          result.boxes
+            .filter(box => box !== result.box)
+            .forEach(box => {
+              Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, {
+                color: "green",
+                lineWidth: 2,
+              });
+            });
+      
+          if (result.box) {
+            Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, {
+              color: "#00F",
+              lineWidth: 2,
+            });
+          }
+      
+          if (result.codeResult && result.codeResult.code) {
+            Quagga.ImageDebug.drawPath(result.line, { x: "x", y: "y" }, drawingCtx, {
+              color: "red",
+              lineWidth: 3,
+            });
+          }
+        }
+      });
+      
+       
+    
+    // ✅ Attach event handler *after* function is defined
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("scanButton").addEventListener("click", startScanner);
+    });
   
  

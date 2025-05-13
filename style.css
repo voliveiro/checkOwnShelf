@@ -382,11 +382,11 @@ footer p {
     width: 70%;
     height: 100px;
     margin: 10px 0;
-    background-color: #5C9EAD;
+    background-color: #326273;
     color: #fff;
     border: none;
     border-radius: 6px;
-    font-size: 1.5em;
+    font-size: 1em;
     font-weight: bold;
     cursor: pointer;
   }
@@ -403,7 +403,7 @@ footer p {
     display: block !important;
     height: 200px;
     width: 300px;
-    border: 2px dashed #326273;
+    border: 2px dashed #EEEEEE;
   }
 
   #scanButton.mobile-only {
