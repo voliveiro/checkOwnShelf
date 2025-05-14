@@ -185,7 +185,6 @@ input[type="password"] {
   justify-content: center;
   align-items: center;
   width: 70%;
-  height: 100px;
   margin: 10px 0;
   color: #ffffff;
   border: none;
@@ -199,8 +198,8 @@ input[type="password"] {
   background-color: #2b4a59;
 }
 #barcode-scanner {
-  height: 200px;
-  width: 300px;
+  height: 150px !important;
+  width: 300px !important; 
   background-color: #eeeeeecc;
   border: 2px dashed #FFFFFF;
 }
