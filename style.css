@@ -196,7 +196,7 @@ input[type="password"] {
   cursor: pointer;
 }
 
-#scanButton.mobile-only {
+#scanButton{
   display: inline-flex; 
   background-color: #2b4a59;
 }
@@ -204,7 +204,8 @@ input[type="password"] {
   display: block;
   height: 200px;
   width: 300px;
-  border: 2px dashed #EEEEEE;
+  background-color: #EEEEEE;
+  border: 2px dashed #FFFFFF;
 }
 
 @media screen and (min-width: 601px) {
