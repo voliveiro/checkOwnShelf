@@ -31,12 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const myLibrary = document.getElementById("my-library");
   const searchAdd = document.getElementById("search-add");
 
-  // Debug: Log elements to ensure they are correctly referenced
-  // console.log("libraryMenu:", libraryMenu);
-  // console.log("addMenu:", addMenu);
-  // console.log("myLibrary:", myLibrary);
-  // console.log("searchAdd:", searchAdd);
-
   // Hide both sections by default on page load
   myLibrary.style.display = "none";
   searchAdd.style.display = "none";
