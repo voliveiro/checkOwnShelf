@@ -197,11 +197,9 @@ input[type="password"] {
 }
 
 #scanButton{
-  display: inline-flex; 
   background-color: #2b4a59;
 }
 #barcode-scanner {
-  display: block;
   height: 200px;
   width: 300px;
   background-color: #EEEEEE;
