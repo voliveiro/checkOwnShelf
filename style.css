@@ -181,8 +181,7 @@ input[type="password"] {
 /* Styling for barcode scanner elements */ 
 
 .mobile-only {
-  display: flex;
-  flex-direction: column;
+  display: block;
   justify-content: center;
   align-items: center;
   width: 70%;
@@ -202,7 +201,7 @@ input[type="password"] {
 #barcode-scanner {
   height: 200px;
   width: 300px;
-  background-color: #EEEEEE;
+  background-color: #eeeeeecc;
   border: 2px dashed #FFFFFF;
 }
 
