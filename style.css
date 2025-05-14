@@ -124,6 +124,7 @@ h3 {
   margin-top: 10px; 
 }
 
+
 /* Styling for main app */ 
 
 /* Hide both sections by default */
@@ -173,6 +174,41 @@ input[type="password"] {
 
 .inputFields button {
   width: 70%; 
+}
+
+/* Styling for barcode scanner elements */ 
+
+.mobile-only {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 100px;
+  margin: 10px 0;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#barcode-scanner {
+  display: block;
+  height: 200px;
+  width: 300px;
+  border: 2px dashed #EEEEEE;
+}
+
+#scanButton.mobile-only {
+  display: inline-flex; 
+  background-color: #2b4a59;
+}
+
+@media screen and (min-width: 601px) {
+  .mobile-only {
+    display: none;
+  }
 }
 
 /*Styling for logout bar*/ 
@@ -385,44 +421,4 @@ footer p {
   margin-top: -10px; 
 }
  
-/* Hide scan button unless on mobile */
-/* .mobile-only {
-  display: none !important;
-} */
-
-@media screen and (max-width: 600px) {
-  .mobile-only {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 70%;
-    height: 100px;
-    margin: 10px 0;
-    background-color: #2b4a59;
-    color: #ffffff;
-    border: none;
-    border-radius: 6px;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
-  .mobile-only p {
-    margin: 0;
-  }
-
-  .mobile-only p {
-    margin: 0;
-  }
-
-  #barcode-scanner.mobile-only {
-    display: block !important;
-    height: 200px;
-    width: 300px;
-    border: 2px dashed #EEEEEE;
-  }
-
-  #scanButton.mobile-only {
-    display: inline-flex !important;
-  }
-}
+ 

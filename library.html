@@ -39,8 +39,10 @@
       <div class="inputFields">
         <!-- ISBN Search Section -->
         <h3>Search by ISBN</h3>
-        <button id="scanButton" class="mobile-only"><p>Scan Barcode</p></button>
-        <div id="barcode-scanner" class = "mobile-only" style="width: 300px; height: 200px;"></div>
+        <div class="mobile-only">
+          <button id="scanButton" class="mobile-only"><p>Scan Barcode</p></button>
+          <div id="barcode-scanner" class = "mobile-only"></div>
+        </div>
         <input type="text" id="isbnInput" placeholder="Enter ISBN">
         <button onclick="checkLibrary()"><p>Check ISBN</p></button>
       </div>
