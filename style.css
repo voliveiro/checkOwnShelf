@@ -273,11 +273,6 @@ button:hover {
   background-color: #5C9EAD;
 }
 
-button p{
-  font-size: 1.5em; 
-  font-weight: bold;
-}
-
 
 #booklist {
   display: flex;
@@ -291,19 +286,17 @@ button p{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-width: 70%; 
-  max-width: 70%;
+  width: 90%; 
   gap: 10px;
   margin-bottom: 20px;
   padding: 12px;
   background-color: #FFFFFF;
-  border: 1px solid #ccc;
   border-radius: 8px;
 }
 
 .bookInfo {
   flex: 3;
-  font-size: 1.5em;
+  font-size: 1em;
   padding: 10px;  
 }
 
@@ -337,31 +330,28 @@ ul#bookList {
   list-style: none;
 }
 
-ul#bookList li {
+.bookListing {
   margin-bottom: 16px;
   background-color: #FFFFFF;
   padding: 12px;
   border-radius: 8px;
-  border-left: 5px solid #5C9EAD;
   box-shadow: 0 1px 5px rgba(0,0,0,0.05);
   word-wrap: break-word;
 }
 
 button.delete-button {
+  display: flex; 
   background-color: #dc3545;
-  color: #5a2d1b;
+  color: #ffffff;
   border: none;
   font-size: 1em;
-  font-weight: bold; 
   border-radius: 4px;
   cursor: pointer;
   margin-top: 10px;
-  display: inline-block;
   width: auto;
-  width: 50%;
-  height: 75px; 
-  display: flex; 
-  justify-content: center;
+  width: 100px;
+  height: 40px; 
+  justify-content: left; 
   align-items: center;
 }
 

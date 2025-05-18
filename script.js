@@ -215,7 +215,7 @@ window.loadBooks = async function () {
   snap.forEach(docSnap => {
     const b = docSnap.data();
     const li = document.createElement("li");
-    li.classList.add("bookRow");
+    li.classList.add("bookListing");
     li.innerHTML = `
       <div class="bookRow">
         <div class="bookThumbnail">
