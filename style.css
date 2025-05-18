@@ -282,8 +282,19 @@ button:hover {
   margin: 0 auto;
 
 }
+
+.bookListing {
+  margin-bottom: 16px;
+  background-color: #FFFFFF;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+  word-wrap: break-word;
+  width: 90%; 
+}
 .bookRow {
   display: flex;
+  flex-wrap: wrap; 
   justify-content: space-between;
   align-items: center;
   width: 90%; 
@@ -292,6 +303,8 @@ button:hover {
   padding: 12px;
   background-color: #FFFFFF;
   border-radius: 8px;
+  overflow-wrap: break-word; 
+  word-wrap: break-word; 
 }
 
 .bookInfo {
@@ -330,14 +343,7 @@ ul#bookList {
   list-style: none;
 }
 
-.bookListing {
-  margin-bottom: 16px;
-  background-color: #FFFFFF;
-  padding: 12px;
-  border-radius: 8px;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
-  word-wrap: break-word;
-}
+
 
 button.delete-button {
   display: flex; 
