@@ -454,6 +454,10 @@ window.startScanner = function () {
 // Attach event handler *after* function is defined
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("scanButton").addEventListener("click", startScanner);
+  document.getElementById("hamburger").addEventListener("click", () => {
+    document.getElementById("navLinks").classList.toggle("show");
+  });
+  
 });
 
 window.addEventListener("scroll", () => {

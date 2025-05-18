@@ -52,8 +52,9 @@ body {
 #libraryHeader {
   margin-top: 0px; 
   display: flex; 
-  flex-direction: column; 
-  align-items: flex-start; 
+  flex-direction: row; 
+  align-items: center;
+  justify-content: space-between
 }
 
 #libraryHeader h1 {
@@ -62,57 +63,73 @@ body {
   color: #2b4a59;
   font-size: 2em; 
   font-weight: bold; 
+} 
+
+/* NAVBAR STYLES */
+.navbar {
+  width: 20%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
- 
-/* Menu Bar */
-li {
-  display: flex; /* Use Flexbox to arrange items in a row */
-  flex-direction: row; /* Ensure items are arranged in a row */
-  justify-content: space-between; /* Space between the items */
-  align-items: center; /* Vertically align items */
-  list-style: none; /* Remove default list styling */
-  margin: -30px 0 0 0 ; /* Remove default margin */
-  /* border: 3px solid #2d5868; Add a border around the container */
-  width: 100%; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-  
+.hamburger {
+  font-size: 3em;
+  color: #2b4a59;
+  cursor: pointer;
 }
 
-li ul {
-  flex: 1; /* Each <ul> takes up an equal share of the available space */
-  height: 100%; 
-  text-align: center; /* Center-align the text inside each <ul> */
-  color: #FFFFFF; /* Text color */
-  font-size: 1.5em; /* Font size */
-  font-weight: bold; 
-  cursor: pointer; /* Add a pointer cursor on hover */
-  background-color: #5C9EAD;
-  padding: 0px 10px; /* Add padding for clickable area */
-  transition: background-color 0.3s ease; /* Smooth hover effect */
-  border-right: 1px solid rgba(255, 255, 255, 0.5); /* Add a subtle border between items */
-  
+/* Hide nav links by default */
+.nav-links {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #EEEEEE;
+  padding: 10px 0;
+  z-index: 999;
 }
 
-/* Remove the border from the last <ul> */
-li ul:last-child {
-  border-right: none;
+/* Show when toggled */
+.nav-links.show {
+  list-style: none; 
+  padding: 0;
+  margin: 0; 
+  display: flex;
+  border: 2px solid #4b838f;
 }
 
-li ul:hover {
-  background-color: #2b4a59;  
+.nav-links li {
+  color: #2b4a59;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1.2em;
+  padding: 10px;
+  text-align: center;
 }
 
-li ul:active {
-  background-color: #1f3e4a; /* Darker shade for when the item is pressed */
-  color: #e0e0e0; /* Change text color when pressed */
+.nav-links li:hover {
+  background-color: #f5f3f3;
 }
+
+
 
 /* Styling specific to frontpage index.html */ 
 h3 {
   font-size: 2.5em; 
   font-weight: bold;
 }
+
+.frontpage-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 
 .frontpage {
   display: flex;
@@ -140,7 +157,6 @@ h3 {
 main {
   width: 100%; 
   min-height: 95%;          /* allow vertical expansion */
-  margin: 2%;               /* 5% on all sides */
   background-color: #EEEEEE;
   padding: 50px;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
@@ -215,12 +231,11 @@ input[type="password"] {
 
 /*Styling for logout bar*/ 
 
-.logout-bar {
+#logout-bar {
   width: 100%; 
   display: flex; 
   justify-content: center; 
   align-items: center;
-  border-bottom : 6px solid #4b838f;
 }
 
 #logout-button {
@@ -233,6 +248,7 @@ input[type="password"] {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  margin-left: 10px; 
 }
 
 button {
@@ -269,7 +285,6 @@ button p{
   align-items: center;
   max-width: 70%; 
   margin: 0 auto;
-  border: 5px solid blue; 
 
 }
 .bookRow {
