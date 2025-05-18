@@ -273,6 +273,7 @@ button:hover {
   background-color: #5C9EAD;
 }
 
+/* Styling for Book List in Library Page */ 
 
 #booklist {
   display: flex;
@@ -343,6 +344,14 @@ ul#bookList {
   list-style: none;
 }
 
+@media only screen and (max-width: 600px) {
+
+  .bookListing {
+    width: 100%; 
+  }
+
+
+}
 
 
 button.delete-button {
