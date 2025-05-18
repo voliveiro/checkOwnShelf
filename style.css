@@ -279,7 +279,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 70%; 
+  width: 100%; 
   margin: 0 auto;
 
 }
@@ -291,7 +291,7 @@ button:hover {
   border-radius: 8px;
   box-shadow: 0 1px 5px rgba(0,0,0,0.05);
   word-wrap: break-word;
-  width: 90%; 
+  width: 50%; 
 }
 .bookRow {
   display: flex;
@@ -346,6 +346,10 @@ ul#bookList {
 
 @media only screen and (max-width: 600px) {
 
+  #booklist {
+    width: 100%;
+
+  }
   .bookListing {
     width: 100%; 
   }
