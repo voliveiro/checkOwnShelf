@@ -26,8 +26,8 @@
     <nav class="navbar">
       <div class="hamburger" id="hamburger">&#9776;</div>
       <ul class="nav-links" id="navLinks">
-        <li id="addMenu">Check/Add</li>
-        <li id="libraryMenu">Library</li>
+        <li class="menuItem" id="addMenu"><p>Check/Add </p></li>
+        <li class="menuItem" id="libraryMenu"><p>View Library </p></li>
       </ul>
     </nav>
   </header>
@@ -45,23 +45,26 @@
           <div id="barcode-scanner" class = "mobile-only"></div>
         </div>
         <input type="text" id="isbnInput" placeholder="Enter ISBN">
-        <button class="checkButton" onclick="checkLibrary()"><p>Check ISBN</p></button>
+        <div class="searchDiv"> 
+          <button class="checkButton" onclick="checkLibrary()"><p>Search</p></button>
+        </div>
       </div>
 
 
     <!-- Title/Author Search Section -->
     <h3>Search by Title and/or Author</h3>
     <div class="inputFields"> 
-          <input type="text" id="titleInput" placeholder="Search by title">
-          <input type="text" id="authorInput" placeholder="Search by author">
-      
-      <button class="checkButton" onclick="searchGoogleBooks()"><p>Search Library</p></button>
+        <input type="text" id="titleInput" placeholder="Search by title">
+        <input type="text" id="authorInput" placeholder="Search by author">
+        <div class="searchDiv"> 
+          <button class="checkButton" onclick="searchGoogleBooks()"><p>Search</p></button>
+        </div>
     </div>
 
     <div id="searchResults"></div>
 
     
-      <button onclick="clearSearch()"><p> Clear Search </p></button>
+    <button id="clearSearch" onclick="clearSearch()"><p> Clear Search </p></button>
 </div>
 
 <div class="feature" id="my-library"> 
