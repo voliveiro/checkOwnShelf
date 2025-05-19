@@ -114,15 +114,15 @@ body {
 
 @media screen and (max-width: 600px) {
   .nav-links.show {
-    width: 200px; 
-    margin-left: -100px; 
+    width: 150px; 
+    margin-left: -80px; 
   }
 }
 .nav-links li {
   color: #2b4a59;
   font-weight: bold;
   cursor: pointer;
-  font-size: 1.2em;
+  font-size: 1em;
   padding: 10px;
   text-align: center;
 }
