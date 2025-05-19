@@ -80,6 +80,14 @@ body {
   position: relative;
 }
 
+@media screen and (max-width: 600px) {
+  .navbar {
+    width: 50%;
+    padding: 0;
+    justify-content: center;
+  }
+}
+
 .hamburger {
   font-size: 3em;
   color: #2b4a59;
