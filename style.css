@@ -80,14 +80,6 @@ body {
   position: relative;
 }
 
-@media screen and (max-width: 600px) {
-  .navbar {
-    width: 50%;
-    padding: 0;
-    justify-content: center;
-  }
-}
-
 .hamburger {
   font-size: 3em;
   color: #2b4a59;
@@ -106,6 +98,12 @@ body {
   padding: 10px 0;
   z-index: 999;
 }
+
+@media screen and (max-width: 600px) {
+    .nav-links {
+      width: 200px; 
+    }
+  }
 
 /* Show when toggled */
 .nav-links.show {
@@ -324,8 +322,7 @@ button:hover {
 
 .bookInfo {
   flex: 3;
-  font-size: 1em;
-  padding: 10px;  
+  font-size: 1em; 
 }
 
 .bookThumbnail {
@@ -343,13 +340,6 @@ button:hover {
   /* height: 200px; */
   height: auto;
   
-}
-
-#bookInfo {
-  margin-top: 15px;
-  font-weight: bold;
-  word-wrap: break-word;
-  font-size: 2em; 
 }
 
 ul#bookList {
