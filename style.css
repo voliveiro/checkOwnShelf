@@ -167,7 +167,7 @@ h3 {
 }
 
 .frontpage .inputFields {
-  width: 60%; 
+  width: 80%; 
 }
 .frontpage .inputFields input {
   width: 100%; 
@@ -309,15 +309,15 @@ input[type="password"] {
   display: flex; 
   justify-content: center;
   align-items: center;
-  width: 100px;
-  height: 50px; 
+  width: 200px;
+  height: 60px; 
   padding: 12px;
   margin: 10px 0;
   background-color: #2b4a59;
   color: #FFFFFF;
   border: none;
   border-radius: 6px;
-  font-size: 1em;
+  font-size: 1.2em;
   cursor: pointer;
   transition: background-color 0.2s ease;
 
