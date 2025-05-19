@@ -40,6 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Library menu clicked");
     myLibrary.style.display = "block";
     searchAdd.style.display = "none";
+
+    navLinks.classList.remove("show"); // hide menu
   
     // 🔁 Reset lazy loading state
     lastVisibleDoc = null;
@@ -57,7 +59,11 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Add menu clicked");
     myLibrary.style.display = "none"; // Hide the library section
     searchAdd.style.display = "block"; // Show the add/search section
+
+    navLinks.classList.remove("show"); // hide menu
   });
+
+
 });
 
 window.checkLibrary = async function () {
