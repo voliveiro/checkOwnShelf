@@ -373,7 +373,6 @@ button.delete-button {
   border-radius: 4px;
   cursor: pointer;
   margin-top: 10px;
-  width: auto;
   width: 100px;
   height: 40px; 
   justify-content: left; 
@@ -400,8 +399,10 @@ button.delete-button:hover {
 
 .addBookBtn {
   padding: 10px 10px;
-  font-size: 1.2em;
+  font-size: 1em;
+  font-weight: bold;
   width: 100px;
+  height: 40px; 
   display: inline-block;
   background-color: #5C9EAD;
   color: #fff;

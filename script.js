@@ -173,14 +173,27 @@ window.clearSearch = function () {
   
 window.deleteBook = async function (bookId) {
   try {
+    // Remove from database
     await deleteDoc(doc(db, "books", bookId));
-    alert("📚 Book removed.");
-    loadBooks(); // refresh list
+
+    // Find and update the corresponding DOM element
+    const button = document.querySelector(`button[onclick="deleteBook('${bookId}')"]`);
+    if (button) {
+      const bookRow = button.closest(".bookListing");
+
+      // Grey out and mark as removed
+      if (bookRow) {
+        bookRow.style.opacity = "0.5";
+        bookRow.style.pointerEvents = "none";
+        bookRow.innerHTML += `<div style="color: red; margin-top: 8px;"><em>❌ Book removed</em></div>`;
+      }
+    }
   } catch (error) {
     console.error("Error deleting book:", error);
     alert("⚠️ Could not delete the book.");
   }
 };
+
   
 let lastVisibleDoc = null;
 let isLoadingBooks = false;
@@ -271,6 +284,9 @@ window.searchGoogleBooks = async function () {
       const bookDiv = document.createElement("div");
       bookDiv.classList.add("bookRow");
       bookDiv.innerHTML = `
+        <div class="bookThumbnail">
+          ${b.thumbnail ? `<img src="${b.thumbnail}" alt="Book cover">` : ""}
+        </div>
         <div class="bookInfo">
           <strong>${b.title}</strong><br>
           by ${b.author}<br>
