@@ -67,7 +67,7 @@ body {
 
 @media screen and (max-width: 600px) {
   #libraryHeader h1 {
-    font-size: 3em; /* Adjust font size for smaller screens */
+    font-size: 2em; /* Adjust font size for smaller screens */
   }
   
 }
@@ -99,11 +99,7 @@ body {
   z-index: 999;
 }
 
-@media screen and (max-width: 600px) {
-    .nav-links {
-      width: 200px; 
-    }
-  }
+
 
 /* Show when toggled */
 .nav-links.show {
@@ -114,6 +110,11 @@ body {
   border: 2px solid #4b838f;
 }
 
+@media screen and (max-width: 600px) {
+  .nav-links.show {
+    width: 200px; 
+  }
+}
 .nav-links li {
   color: #2b4a59;
   font-weight: bold;
