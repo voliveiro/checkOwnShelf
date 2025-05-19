@@ -65,6 +65,12 @@ body {
   font-weight: bold; 
 } 
 
+@media screen and (max-width: 600px) {
+  #libraryHeader h1 {
+    font-size: 3em; /* Adjust font size for smaller screens */
+  }
+  
+}
 /* NAVBAR STYLES */
 .navbar {
   width: 20%;
