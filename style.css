@@ -67,7 +67,8 @@ body {
 
 @media screen and (max-width: 600px) {
   #libraryHeader h1 {
-    font-size: 2em; /* Adjust font size for smaller screens */
+    font-size: 1em; /* Adjust font size for smaller screens */
+    font-weight: bold; 
   }
   
 }
