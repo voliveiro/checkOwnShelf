@@ -115,6 +115,7 @@ body {
 @media screen and (max-width: 600px) {
   .nav-links.show {
     width: 200px; 
+    margin-left: -100px; 
   }
 }
 .nav-links li {
