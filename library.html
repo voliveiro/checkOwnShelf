@@ -26,7 +26,8 @@
     <nav class="navbar">
       <div class="hamburger" id="hamburger">&#9776;</div>
       <ul class="nav-links" id="navLinks">
-        <li class="menuItem" id="addMenu"><p>Check/Add </p></li>
+        <li class="menuItem" id="addMenu"><p>Add to Library</p></li>
+        <li class="menuItem" id="checkMenu"><p>Check Library</p></li>
         <li class="menuItem" id="libraryMenu"><p>View Library </p></li>
       </ul>
     </nav>
@@ -35,48 +36,82 @@
 
 
   <main>
-
-    <div class="feature" id="search-add"> 
-      <h3>Search by ISBN</h3>
+    <!-- Add Section -->
+    <div class="feature" id="add-section" style="display: none;">
+      <h3>Add Book to Library</h3>
       <div class="inputFields">
-        <!-- ISBN Search Section -->
+        <h4>By ISBN</h4>
         <div class="mobile-only">
-          <button class="checkButton" id="scanButton" class="mobile-only"><p>Scan Barcode</p></button>
-          <div id="barcode-scanner" class = "mobile-only"></div>
+          <button class="standardButton" id="scanButton"><p>Scan Barcode</p></button>
+          <div id="barcode-scanner" class="mobile-only"></div>
         </div>
-        <input type="text" id="isbnInput" placeholder="Enter ISBN">
-        <div class="searchDiv"> 
-          <button class="checkButton" onclick="checkLibrary()"><p>Search</p></button>
+        <input type="text" id="addIsbnInput" placeholder="Enter ISBN">
+        <div class="searchDiv">
+          <button class="standardButton" onclick="checkLibrary(true)"><p>Search</p></button>
         </div>
       </div>
 
-
-    <!-- Title/Author Search Section -->
-    <h3>Search by Title and/or Author</h3>
-    <div class="inputFields"> 
+      <div class="inputFields">
+        <h4>By Title and/or Author (Google Books)</h4>
+        <input type="text" id="addTitleInput" placeholder="Search by title">
+        <input type="text" id="addAuthorInput" placeholder="Search by author">
+        <div class="searchDiv">
+          <button class="standardButton" onclick="searchGoogleBooks(true)"><p>Search</p></button>
+        </div>
+      </div>
+      
+      <div class="inputFields">
+        <h4>Manual Entry</h4>
+        <input type="text" id="manualTitle" placeholder="Enter Title">
+        <input type="text" id="manualAuthor" placeholder="Enter Author">
+        <input type="text" id="manualIsbn" placeholder="Enter ISBN (optional)">
+        <input type="text" id="manualPublisher" placeholder="Enter Publisher (optional)">
+        <div class="searchDiv">
+          <button class="standardButton" onclick="addManualBook()"><p>Add Manually</p></button>
+        </div>
+      </div>
+  
+      
+      <button class="standardButton" onclick="clearSearch()"><p> Clear Search </p></button>
+      
+  
+      
+    </div>
+  
+    <!-- Check Section -->
+    <div class="feature" id="check-section" style="display: none;">
+      <h3>Check Library</h3>
+      <div class="inputFields">
+        <h4>By ISBN</h4>
+        <input type="text" id="isbnInput" placeholder="Enter ISBN">
+        <div class="searchDiv">
+          <button class="standardButton" onclick="checkLibrary(false)"><p>Search</p></button>
+        </div>
+      </div>
+  
+      <div class="inputFields">
+        <h4>By Title and/or Author</h4>
         <input type="text" id="titleInput" placeholder="Search by title">
         <input type="text" id="authorInput" placeholder="Search by author">
-        <div class="searchDiv"> 
-          <button class="checkButton" onclick="searchGoogleBooks()"><p>Search</p></button>
+        <div class="searchDiv">
+          <button class="standardButton" onclick="searchGoogleBooks()"><p>Search</p></button>
         </div>
+      </div>
+  
+      <button class="standardButton" onclick="clearSearch()"><p> Clear Search </p></button>
     </div>
 
     <div id="searchResults"></div>
-
-    
-    <button id="clearSearch" onclick="clearSearch()"><p> Clear Search </p></button>
-</div>
-
-<div class="feature" id="my-library"> 
-    <div class="inputFields"> 
-      <h3>Your Books</h3>
-      <!-- <button onclick="loadBooks()"> <p> View My Library </p></button> -->
+  
+    <!-- View Library Section -->
+    <div class="feature" id="my-library" style="display: none;">
+      <div class="inputFields">
+        <h3>Your Books</h3>
+      </div>
+      <ul id="bookList"></ul>
     </div>
-
-    <ul id="bookList"></ul> 
-
-  </div>
-</main>
+  </main>
+  
 
 <div id="logout-bar">
   <button id="logout-button" onclick="logout()"><p> Logout</p></button>

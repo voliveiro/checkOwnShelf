@@ -9,11 +9,13 @@ import {
     doc,
   } from './firebase.js';
 
-  import {
+import {
     limit,
     startAfter
   } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-  
+
+import Fuse from "https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.esm.min.js";
+
 let username = localStorage.getItem("username");
 
 if (!username) {
@@ -26,48 +28,82 @@ window.logout = function () {
 };
    
 document.addEventListener("DOMContentLoaded", function () {
-  const libraryMenu = document.getElementById("libraryMenu");
+  const addSection = document.getElementById("add-section");
+  const checkSection = document.getElementById("check-section");
+  const librarySection = document.getElementById("my-library");
+
   const addMenu = document.getElementById("addMenu");
-  const myLibrary = document.getElementById("my-library");
-  const searchAdd = document.getElementById("search-add");
+  const checkMenu = document.getElementById("checkMenu");
+  const libraryMenu = document.getElementById("libraryMenu");
 
-  // Hide both sections by default on page load
-  myLibrary.style.display = "none";
-  searchAdd.style.display = "none";
+  const hamburger = document.getElementById("hamburger");
+  const navLinks = document.getElementById("navLinks");
 
-  // Show "Library" section and hide "Add" section
-  libraryMenu.addEventListener("click", function () {
-    console.log("Library menu clicked");
-    myLibrary.style.display = "block";
-    searchAdd.style.display = "none";
+  // 📚 Initial state
+  addSection.style.display = "none";
+  checkSection.style.display = "none";
+  librarySection.style.display = "none";
 
-    navLinks.classList.remove("show"); // hide menu
-  
+  // 🍔 Hamburger toggle
+  hamburger.addEventListener("click", () => {
+    navLinks.classList.toggle("show");
+  });
+
+  // ➕ Add Menu
+  addMenu.addEventListener("click", () => {
+    addSection.style.display = "block";
+    checkSection.style.display = "none";
+    librarySection.style.display = "none";
+    navLinks.classList.remove("show");
+    document.getElementById("searchResults").innerHTML = "";
+
+  });
+
+  // 🔍 Check Menu
+  checkMenu.addEventListener("click", () => {
+    addSection.style.display = "none";
+    checkSection.style.display = "block";
+    librarySection.style.display = "none";
+    navLinks.classList.remove("show");
+    document.getElementById("searchResults").innerHTML = "";
+
+  });
+
+  // 📖 Library Menu
+  libraryMenu.addEventListener("click", () => {
+    addSection.style.display = "none";
+    checkSection.style.display = "none";
+    librarySection.style.display = "block";
+    navLinks.classList.remove("show");
+    document.getElementById("searchResults").innerHTML = "";
+
+
     // 🔁 Reset lazy loading state
     lastVisibleDoc = null;
     hasMoreBooks = true;
     isLoadingBooks = false;
     document.getElementById("bookList").innerHTML = "";
-  
+
     // 🔄 Load first batch of books
     loadBooks();
   });
-  
 
-  // Show "Add" section and hide "Library" section
-  addMenu.addEventListener("click", function () {
-    console.log("Add menu clicked");
-    myLibrary.style.display = "none"; // Hide the library section
-    searchAdd.style.display = "block"; // Show the add/search section
-
-    navLinks.classList.remove("show"); // hide menu
-  });
-
-
+  // 📷 Scan Button (if present)
+  const scanButton = document.getElementById("scanButton");
+  if (scanButton) {
+    scanButton.addEventListener("click", startScanner);
+  }
 });
 
-window.checkLibrary = async function () {
-  const isbnInput = document.getElementById("isbnInput").value.trim();
+
+
+
+window.checkLibrary = async function (addMode = false) {
+  const isbnField = addMode ? document.getElementById("addIsbnInput") : document.getElementById("isbnInput");
+  console.log("checkLibrary called, addMode =", addMode);
+  console.log("ISBN entered:", isbnField.value.trim());
+
+  const isbnInput = isbnField.value.trim();
   const resultsDiv = document.getElementById("searchResults");
   const bookList = document.getElementById("bookList");
 
@@ -75,7 +111,7 @@ window.checkLibrary = async function () {
   bookList.innerHTML = "";
 
   if (!isbnInput) {
-    loadBooks(); // fallback: show all books
+    if (!addMode) loadBooks();
     return;
   }
 
@@ -83,10 +119,8 @@ window.checkLibrary = async function () {
   const q = query(booksRef, where("isbn", "==", isbnInput), where("username", "==", username));
   const snap = await getDocs(q);
 
-  // ✅ Already in library
   if (!snap.empty) {
     const book = snap.docs[0].data();
-
     resultsDiv.innerHTML = `
       <div class="bookRow">
         <div class="bookThumbnail">
@@ -104,10 +138,11 @@ window.checkLibrary = async function () {
     return;
   }
 
-  // ❌ Not in library — fetch from Google Books
   try {
     const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbnInput}`);
     const data = await res.json();
+    console.log("Fetching from Google Books:", `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbnInput}`);
+
 
     if (!data.items || data.items.length === 0) {
       resultsDiv.textContent = "❌ Book not found in Google Books.";
@@ -130,43 +165,32 @@ window.checkLibrary = async function () {
           by ${author}<br>
           Publisher: ${publisher}<br>
           ISBN: ${isbnInput}<br>
-          <button class="addBookBtn"> Add </button>
+          ${addMode ? `<button class="addBookBtn"> Add </button>` : ""}
         </div>
       </div>
     `;
 
-    document.querySelector(".addBookBtn").onclick = async () => {
-      await addDoc(booksRef, {
-        isbn: isbnInput,
-        title,
-        author,
-        publisher,
-        thumbnail,
-        username
-      });
-
-      resultsDiv.innerHTML = `
-        <div class="bookRow">
-          <div class="bookThumbnail">
-            ${thumbnail ? `<img src="${thumbnail}" alt="Book cover">` : ""}
-          </div>
-          <div class="bookInfo">
-            <strong>${title}</strong><br>
-            by ${author}<br>
-            Publisher: ${publisher}<br>
-            ISBN: ${isbnInput}<br>
-            <div style="color: green; margin-top: 8px;">✅ Added to your library!</div>
-          </div>
-          
-        </div>
-      `;
-      loadBooks();
-    };
+    if (addMode) {
+      document.querySelector(".addBookBtn").onclick = async () => {
+        await addDoc(booksRef, {
+          isbn: isbnInput,
+          title,
+          author,
+          publisher,
+          thumbnail,
+          username
+        });
+        alert(`✅ "${title}" added to your library.`);
+        resultsDiv.innerHTML = "";
+        loadBooks();
+      };
+    }
   } catch (error) {
     console.error("Google Books API error:", error);
     resultsDiv.textContent = "⚠️ Error retrieving book data.";
   }
 };
+
   
 
 window.clearSearch = function () {
@@ -204,7 +228,10 @@ window.deleteBook = async function (bookId) {
 let lastVisibleDoc = null;
 let isLoadingBooks = false;
 let hasMoreBooks = true;
-const batchSize = 10;
+let batchSize = Math.ceil(window.innerHeight / 160); // Rough estimate: 160px per book row
+batchSize = Math.max(batchSize, 15); // Minimum 15
+console.log("Batch size set to:", batchSize);
+
   
 window.loadBooks = async function () {
   if (isLoadingBooks || !hasMoreBooks) return;
@@ -258,9 +285,9 @@ window.loadBooks = async function () {
 };
   
 
-window.searchGoogleBooks = async function () {
-  const title = document.getElementById("titleInput").value.trim();
-  const author = document.getElementById("authorInput").value.trim();
+window.searchGoogleBooks = async function (isAddMode = false) {
+  const title = isAddMode ? document.getElementById("addTitleInput").value.trim() : document.getElementById("titleInput").value.trim();
+  const author = isAddMode ? document.getElementById("addAuthorInput").value.trim() : document.getElementById("authorInput").value.trim();
   const resultsDiv = document.getElementById("searchResults");
   resultsDiv.innerHTML = "";
 
@@ -269,24 +296,30 @@ window.searchGoogleBooks = async function () {
     return;
   }
 
-  const booksRef = collection(db, "books");
-  const userQuery = query(booksRef, where("username", "==", username));
-  const userSnap = await getDocs(userQuery);
+  if (!isAddMode) {
+    // 🔍 CHECK LIBRARY MODE: search user's Firestore only
+    const booksRef = collection(db, "books");
+    const q = query(booksRef, where("username", "==", username));
+    const snap = await getDocs(q);
+    const allBooks = snap.docs.map(doc => doc.data());
 
-  const localMatches = [];
-  userSnap.forEach(docSnap => {
-    const b = docSnap.data();
-    const titleMatch = title && b.title.toLowerCase().includes(title.toLowerCase());
-    const authorMatch = author && b.author.toLowerCase().includes(author.toLowerCase());
-    if ((title && titleMatch) || (author && authorMatch)) {
-      localMatches.push(b);
+    const options = {
+      keys: ["title", "author"],
+      threshold: 0.4,
+      includeScore: true
+    };
+    const fuse = new Fuse(allBooks, options);
+    const inputQuery = title || author;
+    const results = fuse.search(inputQuery);
+
+    if (results.length === 0) {
+      resultsDiv.textContent = "❌ No matching books found in your library.";
+      return;
     }
-  });
 
-  // 📚 Local results
-  if (localMatches.length > 0) {
-    resultsDiv.innerHTML += `<p><strong>📚 Books already in your library:</strong></p>`;
-    localMatches.forEach(b => {
+    resultsDiv.innerHTML += `<p><strong>📚 Books found in your library:</strong></p>`;
+    results.forEach(result => {
+      const b = result.item;
       const bookDiv = document.createElement("div");
       bookDiv.classList.add("bookRow");
       bookDiv.innerHTML = `
@@ -298,15 +331,14 @@ window.searchGoogleBooks = async function () {
           by ${b.author}<br>
           Publisher: ${b.publisher}<br>
           ISBN: ${b.isbn}<br>
-          <div style="color: green;">✅ Already in your library.</div>
         </div>
-        <div class="bookThumbnail"></div>
       `;
       resultsDiv.appendChild(bookDiv);
     });
+    return;
   }
 
-  // 🔍 Google Books API fallback
+  // ➕ ADD MODE: search Google Books
   let queryStr = "";
   if (title) queryStr += `intitle:${title}`;
   if (author) queryStr += (queryStr ? "+" : "") + `inauthor:${author}`;
@@ -333,10 +365,8 @@ window.searchGoogleBooks = async function () {
 
       const bookDiv = document.createElement("div");
       bookDiv.classList.add("bookRow");
-
       bookDiv.innerHTML = `
-        <div class="bookRow">
-          <div class="bookThumbnail">
+        <div class="bookThumbnail">
           ${thumbnail ? `<img src="${thumbnail}" alt="Book cover">` : ""}
         </div>
         <div class="bookInfo">
@@ -344,18 +374,43 @@ window.searchGoogleBooks = async function () {
           by ${bookAuthor}<br>
           Publisher: ${publisher}<br>
           ISBN: ${isbn}<br>
-          <button class="addBookBtn" onclick="addToLibrary('${isbn}', '${bookTitle.replace(/'/g, "\\'")}', '${bookAuthor.replace(/'/g, "\\'")}', '${publisher.replace(/'/g, "\\'")}')">Add </button>
+          <button class="addBookBtn" onclick="addToLibrary('${isbn}', '${bookTitle.replace(/'/g, "\\'")}', '${bookAuthor.replace(/'/g, "\\'")}', '${publisher.replace(/'/g, "\\'")}')">Add</button>
         </div>
-        
       `;
-
       resultsDiv.appendChild(bookDiv);
     });
   } catch (error) {
     console.error("Google Books API error:", error);
     resultsDiv.innerHTML += "<p>⚠️ Error searching Google Books.</p>";
   }
-};  
+};
+
+window.addManualBook = async function () {
+  const title = document.getElementById("manualTitle").value.trim();
+  const author = document.getElementById("manualAuthor").value.trim();
+  const isbn = document.getElementById("manualIsbn").value.trim();
+  const publisher = document.getElementById("manualPublisher").value.trim();
+  const resultsDiv = document.getElementById("searchResults");
+
+  if (!title) {
+    alert("Please enter at least a title.");
+    return;
+  }
+
+  const book = {
+    title,
+    author: author || "Unknown Author",
+    isbn: isbn || "Manual",
+    publisher: publisher || "Unknown Publisher",
+    thumbnail: ""
+  };
+
+  await addDoc(collection(db, "books"), { ...book, username });
+
+  alert(`✅ "${title}" added manually to your library.`);
+  resultsDiv.innerHTML = "";
+  loadBooks();
+};
   
 window.addToLibrary = async function (isbn, title, author, publisher) {
   const booksRef = collection(db, "books");
@@ -403,10 +458,10 @@ window.startScanner = function () {
     const code = result.codeResult.code;
 
     if (code.startsWith("978") || code.startsWith("979")) {
-      document.getElementById("isbnInput").value = code;
+      document.getElementById("addIsbnInput").value = code;
       Quagga.stop();
       scannerElem.style.display = "none";
-      window.checkLibrary();
+      window.checkLibrary(true);
     } else {
       console.log("Detected non-ISBN barcode:", code);
     }
@@ -473,14 +528,6 @@ window.startScanner = function () {
     });   
   };
   
-// Attach event handler *after* function is defined
-document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("scanButton").addEventListener("click", startScanner);
-  document.getElementById("hamburger").addEventListener("click", () => {
-    document.getElementById("navLinks").classList.toggle("show");
-  });
-  
-});
 
 window.addEventListener("scroll", () => {
   const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
