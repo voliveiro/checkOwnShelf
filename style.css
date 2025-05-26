@@ -367,11 +367,6 @@ button:hover {
   padding-left: 10px; 
 }
 
-@media only screen and (max-width: 600px) {
-  .bookInfo {
-    padding-left: 0px; 
-  }
-}
 .bookThumbnail {
   flex: 1; 
   height: 100%; 
@@ -384,7 +379,6 @@ button:hover {
 .bookThumbnail img {
   display: block;
   width: 100px; 
-  /* height: 200px; */
   height: auto;
   
 }
@@ -396,7 +390,26 @@ ul#bookList {
 }
 
 @media only screen and (max-width: 600px) {
+  .bookRow {
+    flex-direction: row;
+    align-items: flex-start;
+  }
 
+  .bookThumbnail {
+    flex: 0 0 auto;
+    margin-right: 10px;
+  }
+
+  .bookThumbnail img {
+    width: 70px;
+    height: auto;
+  }
+
+  .bookInfo {
+    padding-left: 0;
+    flex: 1;
+  }
+  
   #booklist {
     width: 100%;
 
