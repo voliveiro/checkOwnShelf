@@ -7,7 +7,9 @@ import {
     query,
     where,
     deleteDoc,
-    doc
+    doc,
+    serverTimestamp,
+    orderBy
   } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
   
 import {
@@ -30,6 +32,6 @@ const auth = getAuth(app);
 
 export {
     db, auth,
-    collection, getDocs, addDoc, query, where, deleteDoc, doc,
+    collection, getDocs, addDoc, query, where, deleteDoc, doc, serverTimestamp, orderBy,
     signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut
   };

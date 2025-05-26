@@ -7,6 +7,8 @@ import {
     where,
     deleteDoc,
     doc,
+    serverTimestamp, 
+    orderBy,
   } from './firebase.js';
 
 import {
@@ -178,7 +180,8 @@ window.checkLibrary = async function (addMode = false) {
           author,
           publisher,
           thumbnail,
-          username
+          username,
+          timestamp: serverTimestamp()
         });
         alert(`✅ "${title}" added to your library.`);
         resultsDiv.innerHTML = "";
@@ -240,12 +243,25 @@ window.loadBooks = async function () {
   const bookList = document.getElementById("bookList");
   const booksRef = collection(db, "books");
 
-  let q = query(
-    booksRef,
-    where("username", "==", username),
-    ...(lastVisibleDoc ? [startAfter(lastVisibleDoc)] : []),
-    limit(batchSize)
-  );
+  const sortOrder = document.getElementById("sortOrder")?.value || "timestamp_desc";
+  let orderField = "timestamp";
+  let direction = "desc";
+
+if (sortOrder === "author_asc") {
+  orderField = "author";
+  direction = "asc";
+} else if (sortOrder === "title_asc") {
+  orderField = "title";
+  direction = "asc";
+}
+
+let q = query(
+  booksRef,
+  where("username", "==", username),
+  orderBy(orderField, direction),
+  ...(lastVisibleDoc ? [startAfter(lastVisibleDoc)] : []),
+  limit(batchSize)
+);
 
   const snap = await getDocs(q);
 
@@ -299,7 +315,7 @@ window.searchGoogleBooks = async function (isAddMode = false) {
   if (!isAddMode) {
     // 🔍 CHECK LIBRARY MODE: search user's Firestore only
     const booksRef = collection(db, "books");
-    const q = query(booksRef, where("username", "==", username));
+    const q = query(booksRef, where("username", "==", username), orderBy("timestamp", "desc"));
     const snap = await getDocs(q);
     const allBooks = snap.docs.map(doc => doc.data());
 
@@ -339,20 +355,26 @@ window.searchGoogleBooks = async function (isAddMode = false) {
   }
 
   // ➕ ADD MODE: search Google Books
-  let queryStr = "";
-  if (title) queryStr += `intitle:${title}`;
-  if (author) queryStr += (queryStr ? "+" : "") + `inauthor:${author}`;
+let queryStr = "";
+if (title) queryStr += `intitle:${title}`;
+if (author) queryStr += (queryStr ? "+" : "") + `inauthor:${author}`;
 
+let startIndex = 0;
+let loading = false;
+
+async function loadGoogleBooksBatch() {
+  if (loading) return;
+  loading = true;
   try {
-    const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(queryStr)}&maxResults=10`);
+    const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(queryStr)}&startIndex=${startIndex}&maxResults=10`);
     const data = await res.json();
 
     if (!data.items || data.items.length === 0) {
-      resultsDiv.innerHTML += "<p>❌ No books found in Google Books.</p>";
+      if (startIndex === 0) resultsDiv.innerHTML += "<p>❌ No books found in Google Books.</p>";
       return;
     }
 
-    resultsDiv.innerHTML += `<p><strong>🔍 Books found on Google Books:</strong></p>`;
+    if (startIndex === 0) resultsDiv.innerHTML += `<p><strong>🔍 Books found on Google Books:</strong></p>`;
 
     data.items.forEach(book => {
       const info = book.volumeInfo;
@@ -374,16 +396,31 @@ window.searchGoogleBooks = async function (isAddMode = false) {
           by ${bookAuthor}<br>
           Publisher: ${publisher}<br>
           ISBN: ${isbn}<br>
-          <button class="addBookBtn" onclick="addToLibrary('${isbn}', '${bookTitle.replace(/'/g, "\\'")}', '${bookAuthor.replace(/'/g, "\\'")}', '${publisher.replace(/'/g, "\\'")}')">Add</button>
+          <button class="addBookBtn" onclick="addToLibrary('${isbn}', '${bookTitle.replace(/'/g, "\\'")}', '${bookAuthor.replace(/'/g, "\\'")}', '${publisher.replace(/'/g, "\\'")}', '${thumbnail}')">Add</button>
+
         </div>
       `;
       resultsDiv.appendChild(bookDiv);
     });
+    startIndex += 10;
   } catch (error) {
     console.error("Google Books API error:", error);
     resultsDiv.innerHTML += "<p>⚠️ Error searching Google Books.</p>";
   }
-};
+  loading = false;
+}
+
+await loadGoogleBooksBatch();
+
+window.addEventListener("scroll", async () => {
+  const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+  if (nearBottom) {
+    await loadGoogleBooksBatch();
+  }
+});
+    
+  };
+
 
 window.addManualBook = async function () {
   const title = document.getElementById("manualTitle").value.trim();
@@ -392,20 +429,25 @@ window.addManualBook = async function () {
   const publisher = document.getElementById("manualPublisher").value.trim();
   const resultsDiv = document.getElementById("searchResults");
 
-  if (!title) {
-    alert("Please enter at least a title.");
+  if (!title || !author) {
+    alert("❗ Please enter both a title and an author.");
+    if (!title) {
+      document.getElementById("manualTitle").focus();
+    } else {
+      document.getElementById("manualAuthor").focus();
+    }
     return;
   }
 
   const book = {
     title,
-    author: author || "Unknown Author",
+    author: author, 
     isbn: isbn || "Manual",
     publisher: publisher || "Unknown Publisher",
     thumbnail: ""
   };
 
-  await addDoc(collection(db, "books"), { ...book, username });
+  await addDoc(collection(db, "books"), { ...book, username, timestamp: serverTimestamp() });
 
   alert(`✅ "${title}" added manually to your library.`);
   resultsDiv.innerHTML = "";
@@ -430,7 +472,7 @@ window.addToLibrary = async function (isbn, title, author, publisher) {
     const data = await res.json();
     thumbnail = data.items?.[0]?.volumeInfo?.imageLinks?.thumbnail || "";
   } catch (e) {
-      console.warn("No thumbnail found for", isbn);
+    console.warn("No thumbnail found for", isbn);
   }
 
   await addDoc(booksRef, {
@@ -439,12 +481,14 @@ window.addToLibrary = async function (isbn, title, author, publisher) {
     author,
     publisher,
     thumbnail,
-    username
+    username,
+    timestamp: serverTimestamp() // ✅ THIS IS THE FIX
   });
 
   alert(`✅ "${title}" added to your library.`);
   loadBooks();
 };
+
   
 // Barcode scanner
   
@@ -527,7 +571,14 @@ window.startScanner = function () {
       }
     });   
   };
-  
+
+  window.reloadBooks = function () {
+    lastVisibleDoc = null;
+    hasMoreBooks = true;
+    isLoadingBooks = false;
+    document.getElementById("bookList").innerHTML = "";
+    loadBooks();
+  };
 
 window.addEventListener("scroll", () => {
   const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;

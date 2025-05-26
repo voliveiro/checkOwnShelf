@@ -107,6 +107,12 @@
     <div class="feature" id="my-library" style="display: none;">
       <div class="inputFields">
         <h3>Your Books</h3>
+        <label for="sortOrder">Sort by: </label>
+          <select id="sortOrder" onchange="reloadBooks()">
+            <option value="timestamp_desc">Date Added (Newest)</option>
+            <option value="author_asc">Author (A-Z)</option>
+            <option value="title_asc">Title (A-Z)</option>
+          </select>
       </div>
       <ul id="bookList"></ul>
     </div>
