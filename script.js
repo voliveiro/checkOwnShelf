@@ -42,6 +42,52 @@ document.addEventListener("DOMContentLoaded", function () {
   const hamburger = document.getElementById("hamburger");
   const navLinks = document.getElementById("navLinks");
 
+  // Submit ISBN (add) with Enter
+const addIsbnForm = document.getElementById("addIsbnForm");
+if (addIsbnForm) {
+  addIsbnForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    checkLibrary(true);
+  });
+}
+
+// Submit Google Books search (add)
+const addTitleOrAuthor = document.getElementById("addTitleOrAuthor");
+if (addTitleOrAuthor) {
+  addTitleOrAuthor.addEventListener("submit", function (e) {
+    e.preventDefault();
+    searchGoogleBooks(true);
+  });
+}
+
+// Submit manual book entry
+const addManually = document.getElementById("addManually");
+if (addManually) {
+  addManually.addEventListener("submit", function (e) {
+    e.preventDefault();
+    addManualBook();
+  });
+}
+
+// Submit ISBN (check)
+const checkByISBN = document.getElementById("checkByISBN");
+if (checkByISBN) {
+  checkByISBN.addEventListener("submit", function (e) {
+    e.preventDefault();
+    checkLibrary(false);
+  });
+}
+
+// Submit Title/Author (check)
+const checkByTitleOrAuthor = document.getElementById("checkByTitleOrAuthor");
+if (checkByTitleOrAuthor) {
+  checkByTitleOrAuthor.addEventListener("submit", function (e) {
+    e.preventDefault();
+    searchGoogleBooks();
+  });
+}
+
+
   const sortOrderSelect = document.getElementById("sortOrder");
 
   if (sortOrderSelect) {
@@ -407,8 +453,6 @@ async function loadGoogleBooksBatch() {
       return;
     }
 
-    if (startIndex === 0) resultsDiv.innerHTML += `<p><strong>🔍 Books found on Google Books:</strong></p>`;
-
     data.items.forEach(book => {
       const info = book.volumeInfo;
       const isbnObj = (info.industryIdentifiers || []).find(i => i.type.includes("ISBN"));
@@ -433,7 +477,12 @@ async function loadGoogleBooksBatch() {
 
         </div>
       `;
-      resultsDiv.appendChild(bookDiv);
+
+      const wrapper = document.createElement("div");
+      wrapper.classList.add("bookListing");
+      wrapper.appendChild(bookDiv);
+
+      resultsDiv.appendChild(wrapper);
     });
     startIndex += 10;
   } catch (error) {

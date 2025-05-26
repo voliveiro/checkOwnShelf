@@ -44,37 +44,42 @@
         <div class="mobile-only">
           <button class="standardButton" id="scanButton"><p>Scan Barcode</p></button>
         </div>
-        <input type="text" id="addIsbnInput" placeholder="Enter ISBN">
-        <div class="searchDiv">
-          <button class="standardButton" onclick="checkLibrary(true)"><p>Search</p></button>
-        </div>
+        <form id="addIsbnForm">
+          <input type="text" id="addIsbnInput" placeholder="Enter ISBN">
+          <div class="searchDiv">
+            <button class="standardButton" type="submit"><p>Search</p></button>
+          </div>
+        </form>
+
       </div>
 
       <div class="inputFields">
         <h4>By Title and/or Author (Google Books)</h4>
-        <input type="text" id="addTitleInput" placeholder="Search by title">
-        <input type="text" id="addAuthorInput" placeholder="Search by author">
-        <div class="searchDiv">
-          <button class="standardButton" onclick="searchGoogleBooks(true)"><p>Search</p></button>
-        </div>
+        <form id="addTitleOrAuthor">
+          <input type="text" id="addTitleInput" placeholder="Search by title">
+          <input type="text" id="addAuthorInput" placeholder="Search by author">
+          <div class="searchDiv">
+            <button class="standardButton" type="submit""><p>Search</p></button>
+          </div>
+        </form>
+  
       </div>
       
       <div class="inputFields">
         <h4>Manual Entry</h4>
-        <input type="text" id="manualTitle" placeholder="Enter Title">
-        <input type="text" id="manualAuthor" placeholder="Enter Author">
-        <input type="text" id="manualIsbn" placeholder="Enter ISBN (optional)">
-        <input type="text" id="manualPublisher" placeholder="Enter Publisher (optional)">
-        <div class="searchDiv">
-          <button class="standardButton" onclick="addManualBook()"><p>Add Manually</p></button>
+        <form id="addManually"> 
+          <input type="text" id="manualTitle" placeholder="Enter Title">
+          <input type="text" id="manualAuthor" placeholder="Enter Author">
+          <input type="text" id="manualIsbn" placeholder="Enter ISBN (optional)">
+          <input type="text" id="manualPublisher" placeholder="Enter Publisher (optional)">
+          <div class="searchDiv">
+            <button class="standardButton" type="submit"><p>Add Manually</p></button>
+          </div>
         </div>
+        </form>
+        <button class="standardButton" onclick="clearSearch()"><p> Clear Search </p></button>
       </div>
-  
-      
-      <button class="standardButton" onclick="clearSearch()"><p> Clear Search </p></button>
-      
-  
-      
+
     </div>
   
     <!-- Check Section -->
@@ -82,19 +87,27 @@
       <h3>Check Library</h3>
       <div class="inputFields">
         <h4>By ISBN</h4>
-        <input type="text" id="isbnInput" placeholder="Enter ISBN">
-        <div class="searchDiv">
-          <button class="standardButton" onclick="checkLibrary(false)"><p>Search</p></button>
-        </div>
+        <form id="checkByISBN"> 
+          <input type="text" id="isbnInput" placeholder="Enter ISBN">
+          <div class="searchDiv">
+            <button class="standardButton" type="submit"><p>Search</p></button>
+          </div>
+        </form>
+        
       </div>
   
       <div class="inputFields">
         <h4>By Title and/or Author</h4>
-        <input type="text" id="titleInput" placeholder="Search by title">
-        <input type="text" id="authorInput" placeholder="Search by author">
-        <div class="searchDiv">
-          <button class="standardButton" onclick="searchGoogleBooks()"><p>Search</p></button>
-        </div>
+        <form id="checkByTitleOrAuthor">
+          <label for="titleInput">Title:</label>
+          <input type="text" id="titleInput" placeholder="Search by title">
+          <label for="authorInput">Author:</label>
+          <input type="text" id="authorInput" placeholder="Search by author">
+          <div class="searchDiv">
+            <button class="standardButton" type="submit"><p>Search</p></button>
+          </div>
+        </form>
+        
       </div>
   
       <button class="standardButton" onclick="clearSearch()"><p> Clear Search </p></button>
