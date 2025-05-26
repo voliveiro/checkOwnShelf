@@ -277,6 +277,38 @@ input[type="password"] {
   font-size: 1em; 
   color: #FFFFFF;
 }
+/* Styling for #searchResults */ 
+
+@media only screen and (max-width: 600px) {
+  #searchResults .bookRow {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 16px; /* Add space between listings */
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  #searchResults .bookThumbnail {
+    margin-right: 10px;
+    flex: 0 0 auto;
+  }
+
+  #searchResults .bookThumbnail img {
+    width: 70px;
+    height: auto;
+    display: block;
+  }
+
+  #searchResults .bookInfo {
+    flex: 1;
+    font-size: 1em;
+    padding-left: 0;
+  }
+}
+
 /*Styling for logout bar*/ 
 
 #logout-bar {
@@ -409,7 +441,7 @@ ul#bookList {
     padding-left: 0;
     flex: 1;
   }
-  
+
   #booklist {
     width: 100%;
 
