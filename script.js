@@ -317,6 +317,9 @@ console.log("Batch size set to:", batchSize);
 
   
 window.loadBooks = async function () {
+  const resultsDiv = document.getElementById("searchResults");
+  if (resultsDiv) resultsDiv.innerHTML = "";
+
   if (isLoadingBooks || !hasMoreBooks) return;
   isLoadingBooks = true;
 
@@ -580,6 +583,7 @@ window.addToLibrary = async function (isbn, title, author, publisher) {
 
   alert(`✅ "${title}" added to your library.`);
   loadBooks();
+  document.getElementById("searchResults").innerHTML = ""
 };
 
   
