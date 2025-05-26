@@ -519,6 +519,7 @@ select#sortOrder:focus {
 
   .modal-content {
     background-color: #fefefe;
+    border: 2px solid red; 
     margin: 10% auto;
     padding: 20px;
     border-radius: 12px;
@@ -550,6 +551,16 @@ select#sortOrder:focus {
     color: #2b4a59;
   }
 }
+
+#barcode-scanner video,
+#barcode-scanner canvas {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 250px;
+  display: block;
+  margin: 0 auto;
+}
+
 
 /* 🖥️ Hide modal on screens wider than 600px */
 @media screen and (min-width: 601px) {
