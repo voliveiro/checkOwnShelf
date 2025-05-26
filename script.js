@@ -1,4 +1,5 @@
 console.log ("Script loaded successfully!");
+
 import {
     db,
     collection,
@@ -29,7 +30,9 @@ window.logout = function () {
   localStorage.removeItem("username");
   window.location.href = "index.html";
 };
-   
+  
+// To ensure that the functions run after the DOM is fully loaded
+
 document.addEventListener("DOMContentLoaded", function () {
   const addSection = document.getElementById("add-section");
   const checkSection = document.getElementById("check-section");
@@ -440,6 +443,9 @@ if (author) queryStr += (queryStr ? "+" : "") + `inauthor:${author}`;
 
 let startIndex = 0;
 let loading = false;
+const maxResultsTotal = 30;      
+const resultsPerBatch = 10;     
+let allBooksLoaded = false;
 
 async function loadGoogleBooksBatch() {
   if (loading) return;
@@ -485,6 +491,10 @@ async function loadGoogleBooksBatch() {
       resultsDiv.appendChild(wrapper);
     });
     startIndex += 10;
+    if (startIndex >= maxResultsTotal || data.items.length < resultsPerBatch) {
+      allBooksLoaded = true;
+    }
+    
   } catch (error) {
     console.error("Google Books API error:", error);
     resultsDiv.innerHTML += "<p>⚠️ Error searching Google Books.</p>";
@@ -496,10 +506,11 @@ await loadGoogleBooksBatch();
 
 window.addEventListener("scroll", async () => {
   const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
-  if (nearBottom) {
+  if (nearBottom && !loading && !allBooksLoaded) {
     await loadGoogleBooksBatch();
   }
 });
+
     
   };
 
