@@ -61,9 +61,18 @@ body {
   align-items: flex-start;
   text-align: left; 
   color: #2b4a59;
-  font-size: 2em; 
+  font-size: 3em; 
   font-weight: bold; 
 } 
+
+#libraryHeader h2 {
+  font-size: 2em; 
+  font-weight: bold; 
+}
+
+#libraryHeader h3 {
+  font-size: 1.2em;
+}
 
 @media screen and (max-width: 600px) {
   #libraryHeader h1 {
@@ -140,7 +149,7 @@ body {
 }
 
 /* Styling specific to frontpage index.html */ 
-h3 {
+.frontpage h3 {
   font-size: 1.5em; 
   font-weight: bold;
 }

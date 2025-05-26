@@ -38,9 +38,9 @@
   <main>
     <!-- Add Section -->
     <div class="feature" id="add-section" style="display: none;">
-      <h3>Add Book to Library</h3>
+      <h2>Add Book to Library</h2>
       <div class="inputFields">
-        <h4>By ISBN</h4>
+        <h3>By ISBN</h3>
         <div class="mobile-only">
           <button class="standardButton" id="scanButton"><p>Scan Barcode</p></button>
         </div>
@@ -54,7 +54,7 @@
       </div>
 
       <div class="inputFields">
-        <h4>By Title and/or Author (Google Books)</h4>
+        <h3>By Title and/or Author (Google Books)</h3>
         <form id="addTitleOrAuthor">
           <input type="text" id="addTitleInput" placeholder="Search by title">
           <input type="text" id="addAuthorInput" placeholder="Search by author">
@@ -66,7 +66,7 @@
       </div>
       
       <div class="inputFields">
-        <h4>Manual Entry</h4>
+        <h3>Manual Entry</h3>
         <form id="addManually"> 
           <input type="text" id="manualTitle" placeholder="Enter Title">
           <input type="text" id="manualAuthor" placeholder="Enter Author">
@@ -84,9 +84,9 @@
   
     <!-- Check Section -->
     <div class="feature" id="check-section" style="display: none;">
-      <h3>Check Library</h3>
+      <h2>Check Library</h2>
       <div class="inputFields">
-        <h4>By ISBN</h4>
+        <h3>By ISBN</h3>
         <form id="checkByISBN"> 
           <input type="text" id="isbnInput" placeholder="Enter ISBN">
           <div class="searchDiv">
@@ -97,7 +97,7 @@
       </div>
   
       <div class="inputFields">
-        <h4>By Title and/or Author</h4>
+        <h3>By Title and/or Author</h3>
         <form id="checkByTitleOrAuthor">
           <label for="titleInput">Title:</label>
           <input type="text" id="titleInput" placeholder="Search by title">
@@ -118,7 +118,7 @@
     <!-- View Library Section -->
     <div class="feature" id="my-library" style="display: none;">
       <div class="inputFields">
-        <h3>Your Books</h3>
+        <h2>Your Books</h2>
         <label for="sortOrder">Sort by: </label>
           <select id="sortOrder" onchange="reloadBooks()">
             <option value="timestamp_desc">Date Added (Newest)</option>
