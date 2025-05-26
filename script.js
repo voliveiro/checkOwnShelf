@@ -103,9 +103,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Scan Button (if present)
   const scanButton = document.getElementById("scanButton");
-  if (scanButton) {
-    scanButton.addEventListener("click", startScanner);
+  const scannerModal = document.getElementById("scannerModal");
+const closeScanner = document.getElementById("closeScanner");
+const scannerElem = document.getElementById("barcode-scanner");
+
+if (scanButton) {
+  scanButton.addEventListener("click", () => {
+    if (scannerModal) scannerModal.style.display = "block";
+    startScanner();
+  });
+}
+
+if (closeScanner) {
+  closeScanner.addEventListener("click", () => {
+    scannerModal.style.display = "none";
+    Quagga.stop();
+  });
+}
+
+window.onclick = function (event) {
+  if (event.target === scannerModal) {
+    scannerModal.style.display = "none";
+    Quagga.stop();
   }
+};
+
 });
 
  

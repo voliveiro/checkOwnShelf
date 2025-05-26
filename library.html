@@ -43,7 +43,6 @@
         <h4>By ISBN</h4>
         <div class="mobile-only">
           <button class="standardButton" id="scanButton"><p>Scan Barcode</p></button>
-          <div id="barcode-scanner" class="mobile-only"></div>
         </div>
         <input type="text" id="addIsbnInput" placeholder="Enter ISBN">
         <div class="searchDiv">
@@ -130,6 +129,15 @@
     <p><b>Disclaimer: </b><br>
       This website is created for learning purposes only. The information provided here should not be considered professional advice. Please note that we make no guarantees regarding the accuracy, completeness, or reliability of the contents of this website. Any actions you take based on the contents of this website are at your own risk. We are not liable for any losses or damages incurred from the use of this website.</p>
   </footer>
+
+  <!-- Scanner Modal (place before </body>) -->
+  <div id="scannerModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeScanner">&times;</span>
+      <div id="barcode-scanner"></div>
+    </div>
+  </div>
+
   
   <script src="https://unpkg.com/@ericblade/quagga2@1.2.6/dist/quagga.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
