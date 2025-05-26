@@ -1,3 +1,4 @@
+console.log ("Script loaded successfully!");
 import {
     db,
     collection,
@@ -41,17 +42,26 @@ document.addEventListener("DOMContentLoaded", function () {
   const hamburger = document.getElementById("hamburger");
   const navLinks = document.getElementById("navLinks");
 
-  // 📚 Initial state
+  const sortOrderSelect = document.getElementById("sortOrder");
+
+  if (sortOrderSelect) {
+    sortOrderSelect.addEventListener("change", () => {
+      console.log("Dropdown changed (mobile-safe)"); // Optional debug
+      reloadBooks();
+    });
+  }
+
+  // Initial state
   addSection.style.display = "none";
   checkSection.style.display = "none";
   librarySection.style.display = "none";
 
-  // 🍔 Hamburger toggle
+  // Hamburger toggle
   hamburger.addEventListener("click", () => {
     navLinks.classList.toggle("show");
   });
 
-  // ➕ Add Menu
+  // Add Menu
   addMenu.addEventListener("click", () => {
     addSection.style.display = "block";
     checkSection.style.display = "none";
@@ -61,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   });
 
-  // 🔍 Check Menu
+  // Check Menu
   checkMenu.addEventListener("click", () => {
     addSection.style.display = "none";
     checkSection.style.display = "block";
@@ -71,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   });
 
-  // 📖 Library Menu
+  // Library Menu
   libraryMenu.addEventListener("click", () => {
     addSection.style.display = "none";
     checkSection.style.display = "none";
@@ -80,26 +90,25 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("searchResults").innerHTML = "";
 
 
-    // 🔁 Reset lazy loading state
+
+    // Reset lazy loading state
     lastVisibleDoc = null;
     hasMoreBooks = true;
     isLoadingBooks = false;
     document.getElementById("bookList").innerHTML = "";
 
-    // 🔄 Load first batch of books
+    // Load first batch of books
     loadBooks();
   });
 
-  // 📷 Scan Button (if present)
+  // Scan Button (if present)
   const scanButton = document.getElementById("scanButton");
   if (scanButton) {
     scanButton.addEventListener("click", startScanner);
   }
 });
 
-
-
-
+ 
 window.checkLibrary = async function (addMode = false) {
   const isbnField = addMode ? document.getElementById("addIsbnInput") : document.getElementById("isbnInput");
   console.log("checkLibrary called, addMode =", addMode);
@@ -247,21 +256,23 @@ window.loadBooks = async function () {
   let orderField = "timestamp";
   let direction = "desc";
 
-if (sortOrder === "author_asc") {
-  orderField = "author";
-  direction = "asc";
-} else if (sortOrder === "title_asc") {
-  orderField = "title";
-  direction = "asc";
-}
+  if (sortOrder === "author_asc") {
+    orderField = "author";
+    direction = "asc";
+  } else if (sortOrder === "title_asc") {
+    orderField = "title";
+    direction = "asc";
+  }
+  
 
-let q = query(
-  booksRef,
-  where("username", "==", username),
-  orderBy(orderField, direction),
-  ...(lastVisibleDoc ? [startAfter(lastVisibleDoc)] : []),
-  limit(batchSize)
-);
+
+  let q = query(
+    booksRef,
+    where("username", "==", username),
+    orderBy(orderField, direction),
+    ...(lastVisibleDoc ? [startAfter(lastVisibleDoc)] : []),
+    limit(batchSize)
+  );
 
   const snap = await getDocs(q);
 
@@ -298,7 +309,7 @@ let q = query(
   lastVisibleDoc = snap.docs[snap.docs.length - 1];
   if (snap.docs.length < batchSize) hasMoreBooks = false;
   isLoadingBooks = false;
-};
+}
   
 
 window.searchGoogleBooks = async function (isAddMode = false) {
