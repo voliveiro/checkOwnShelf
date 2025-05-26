@@ -519,7 +519,7 @@ select#sortOrder:focus {
 
   .modal-content {
     background-color: #fefefe;
-    border: 2px solid red; 
+    border: 2px solid #4b838f; 
     margin: 10% auto;
     padding: 20px;
     border-radius: 12px;
