@@ -70,18 +70,12 @@ body {
   justify-content: space-between
 }
 
-#libraryHeader h1 {
-  align-items: flex-start;
-  text-align: left; 
-  color: #2b4a59;
-  font-size: 3em; 
-  font-weight: bold; 
-} 
-
 @media screen and (max-width: 600px) {
-  #libraryHeader h1 {
-    font-size: 1.2em; /* Adjust font size for smaller screens */
-    font-weight: bold; 
+  #libraryHeader img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
   }  
 }
 
