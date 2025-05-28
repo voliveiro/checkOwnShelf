@@ -101,7 +101,7 @@ if (checkByTitleOrAuthor) {
   }
 
   // Initial state
-  addSection.style.display = "none";
+  addSection.style.display = "block";
   checkSection.style.display = "none";
   librarySection.style.display = "none";
 
@@ -132,6 +132,7 @@ if (checkByTitleOrAuthor) {
 
   // Library Menu
   libraryMenu.addEventListener("click", () => {
+    
     addSection.style.display = "none";
     checkSection.style.display = "none";
     librarySection.style.display = "block";
@@ -146,6 +147,11 @@ if (checkByTitleOrAuthor) {
     isLoadingBooks = false;
     document.getElementById("bookList").innerHTML = "";
 
+    if (googleBooksScrollHandler) {
+      window.removeEventListener("scroll", googleBooksScrollHandler);
+      googleBooksScrollHandler = null;
+    }
+    
     // Load first batch of books
     loadBooks();
   });
@@ -153,8 +159,8 @@ if (checkByTitleOrAuthor) {
   // Scan Button (if present)
   const scanButton = document.getElementById("scanButton");
   const scannerModal = document.getElementById("scannerModal");
-const closeScanner = document.getElementById("closeScanner");
-const scannerElem = document.getElementById("barcode-scanner");
+  const closeScanner = document.getElementById("closeScanner");
+  const scannerElem = document.getElementById("barcode-scanner");
 
 if (scanButton) {
   scanButton.addEventListener("click", () => {
@@ -385,6 +391,7 @@ window.loadBooks = async function () {
   isLoadingBooks = false;
 }
   
+let googleBooksScrollHandler = null;
 
 window.searchGoogleBooks = async function (isAddMode = false) {
   const title = isAddMode ? document.getElementById("addTitleInput").value.trim() : document.getElementById("titleInput").value.trim();
@@ -507,12 +514,14 @@ async function loadGoogleBooksBatch() {
 
 await loadGoogleBooksBatch();
 
-window.addEventListener("scroll", async () => {
+googleBooksScrollHandler = async function () {
   const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
   if (nearBottom && !loading && !allBooksLoaded) {
     await loadGoogleBooksBatch();
   }
-});
+};
+window.addEventListener("scroll", googleBooksScrollHandler);
+
 
     
   };

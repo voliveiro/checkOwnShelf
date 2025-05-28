@@ -17,36 +17,48 @@ body {
   color: #2b4a59;
 }
 
-/* Header - Index Page*/ 
+
+/* Styling specific to frontpage index.html */ 
+ 
+ 
+.frontpage {
+  width: 100%; 
+  text-align: center; 
+}
+
+.frontpage .inputFields {
+  display: inline-block;
+  width: 80%; 
+}
+.frontpage .inputFields input {
+  width: 100%; 
+  height: 100px; 
+  font-size: 1.5em; 
+}
+
+.frontpage button {
+  width: 100%; 
+  height: 75px; 
+}
+
+.frontpage button p {
+  font-size: 1.5em; 
+}
+ 
 
 #indexHeader {
-  margin-top: 10px; 
-  margin-bottom: 5px;
-  padding: 0 10px 0 10px; 
-  background-color: #EEEEEE;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: auto; 
-  border-bottom : 6px solid #4b838f;
+  text-align: center; 
+  padding: 20px; 
 }
 
-#indexHeader h1 {
-  margin-bottom: 0;
-  text-align: center;
-  color: #2b4a59;
-  font-size: 6em; 
-  white-space: nowrap; /* Prevent text from wrapping */
+
+#indexHeader img {
+  width: 300px;
+  height: auto;
+  display: inline-block;     /* needed to respond to text-align */
 }
 
-#indexHeader h2 {
-  margin-top: -20px;
-  text-align: center;
-  color: #2b4a59;
-  font-weight: normal;
-  font-size: 5em;
-  white-space: nowrap; /* Prevent text from wrapping */
-}
+
 
 /* Header - Library Page*/ 
 
@@ -151,41 +163,6 @@ h3 {
   height: 40px; 
 }
 
-/* Styling specific to frontpage index.html */ 
-.frontpage h3 {
-  font-size: 1.5em; 
-  font-weight: bold;
-}
-
-.frontpage-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-
-.frontpage {
-  display: flex;
-  flex-direction: column; /* Stack child elements vertically */
-  align-items: center; /* Center child elements horizontally */
-  justify-content: center; /* Center child elements vertically */
-  width: 70%; /* Optional: Limit the width of the frontpage */
-  padding: 20px; /* Add some padding for spacing */
-  background-color: #f9f9f9; /* Optional: Add a background color */
-  border-radius: 10px; /* Optional: Add rounded corners */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
-  margin-top: 10px;  
-}
-
-.frontpage .inputFields {
-  width: 80%; 
-}
-.frontpage .inputFields input {
-  width: 100%; 
-  height: 100px; 
-  font-size: 1.2em; 
-}
 
 /* Styling for main app */ 
 
