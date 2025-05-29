@@ -132,7 +132,7 @@ h3 {
 
 @media screen and (max-width: 600px) {
   .nav-links.show {
-    width: 150px; 
+    width: 200px; 
     margin-left: -80px; 
   }
 }
